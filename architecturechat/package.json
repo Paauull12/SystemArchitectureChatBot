@@ -1,0 +1,84 @@
+{
+  "name": "architecturechat",
+  "displayName": "ArchitectureChat",
+  "description": "A smart way to get suggestions for your app.",
+  "version": "0.0.1",
+  "publisher": "paaull12",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "browser": "./dist/web/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "architecturechat.openChat",
+        "title": "Deschide Chat"
+      },
+      {
+        "command": "architecturechat.clearChat",
+        "title": "Curăță Conversația"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "architecturechat-sidebar",
+          "title": "Architecture Chat",
+          "icon": "media/chat-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "architecturechat-sidebar": [
+        {
+          "type": "webview",
+          "id": "architecturechat.chatView",
+          "name": "Chat",
+          "icon": "media/chat-icon.svg",
+          "contextualTitle": "Architecture Chat"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "architecturechat.clearChat",
+          "when": "view == architecturechat.chatView",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js",
+    "pretest": "npm run compile-web",
+    "compile": "tsc -p ./",
+    "vscode:prepublish": "npm run package-web",
+    "compile-web": "webpack",
+    "watch-web": "webpack --watch",
+    "package-web": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint src",
+    "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
+  },
+  "devDependencies": {
+    "@types/assert": "^1.5.11",
+    "@types/mocha": "^10.0.10",
+    "@types/vscode": "^1.74.0",
+    "@types/webpack-env": "^1.18.8",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/test-web": "^0.0.69",
+    "assert": "^2.1.0",
+    "eslint": "^9.25.1",
+    "mocha": "^11.1.0",
+    "process": "^0.11.10",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.7",
+    "webpack-cli": "^6.0.1"
+  }
+}
