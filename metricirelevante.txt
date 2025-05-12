@@ -26,3 +26,6 @@ Global pentru tot:
 -- to be done
 
 
+returnType fuctionName(pathToFileFromCurrent)
+
+
