@@ -1,5 +1,6 @@
 {
-  "name": "architecturechat",
+  "_comment": "config json",
+  "name": "edit-name", 
   "displayName": "ArchitectureChat",
   "description": "A smart way to get suggestions for your app.",
   "version": "0.0.1",
