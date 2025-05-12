@@ -1,0 +1,28 @@
+Local pentru fisier:
+
+Cyclomatic Complexity
+Numărul de căi independente prin codul sursă, indicând complexitatea logică a metodei sau funcției.
+
+Cognitive Complexity
+Efortul mental necesar pentru a înțelege codul, luând în considerare imbricările și structurile de control
+
+Weighted Methods per Class - WMC
+Suma complexităților tuturor metodelor dintr-o clasă.
+
+Lack of Cohesion in Methods - LCOM
+Gradul în care metodele unei clase sunt legate între ele prin variabilele de instanță.
+
+Afferent Coupling (Ca)
+Numărul de clase care depind de o anumită clasă.
+
+Efferent Coupling (Ce)
+Numărul de clase de care depinde o anumită clasă.
+
+Abstractness (A)
+Proporția claselor abstracte și interfețelor într-un pachet sau modul.
+
+Global pentru tot:
+
+-- to be done
+
+
