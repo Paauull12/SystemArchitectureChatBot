@@ -18,8 +18,6 @@ Numărul de clase care depind de o anumită clasă.
 Efferent Coupling (Ce)
 Numărul de clase de care depinde o anumită clasă.
 
-Abstractness (A)
-Proporția claselor abstracte și interfețelor într-un pachet sau modul.
 
 Global pentru tot:
 
