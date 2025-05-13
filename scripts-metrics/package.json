@@ -1,5 +1,6 @@
 {
-  "name": "architecturechat",
+  "_comment": "config json",
+  "name": "edit-name", 
   "displayName": "ArchitectureChat",
   "description": "A smart way to get suggestions for your app.",
   "version": "0.0.1",
@@ -20,7 +21,7 @@
       },
       {
         "command": "architecturechat.clearChat",
-        "title": "Clean Conv"
+        "title": "Curăță Conversația"
       }
     ],
     "viewsContainers": {
@@ -39,7 +40,7 @@
           "id": "architecturechat.chatView",
           "name": "Chat",
           "icon": "media/chat-icon.svg",
-          "contextualTitle": "ArchitectureChat"
+          "contextualTitle": "Architecture Chat"
         }
       ]
     },
