@@ -3,6 +3,8 @@ out
 dist/
 *.vsix
 
+.vscode-test-web
+
 # Dependencies
 node_modules/
 .npm
