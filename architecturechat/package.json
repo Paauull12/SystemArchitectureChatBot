@@ -20,7 +20,7 @@
       },
       {
         "command": "architecturechat.clearChat",
-        "title": "Curăță Conversația"
+        "title": "Clean Conv"
       }
     ],
     "viewsContainers": {
@@ -39,7 +39,7 @@
           "id": "architecturechat.chatView",
           "name": "Chat",
           "icon": "media/chat-icon.svg",
-          "contextualTitle": "Architecture Chat"
+          "contextualTitle": "ArchitectureChat"
         }
       ]
     },
