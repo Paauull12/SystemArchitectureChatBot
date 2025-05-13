@@ -1,5 +1,16 @@
 import { readFileSync } from 'fs';
-
+/**
+ * Efferent Coupling (Ce) - Outgoing Dependencies
+ * 
+ * Number of classes that a given class depends upon.
+ * Indicates the class's independence and reusability.
+ * 
+ * Interpretation based on industry standards:
+ * - Very Good: Ce ≤ 5 (highly independent)
+ * - Acceptable: 6 ≤ Ce ≤ 10 (moderate dependencies)
+ * - Warning: 11 ≤ Ce ≤ 20 (many dependencies)
+ * - Bad: Ce > 20 (too dependent, low reusability)
+ */
 export function calculateEfferentCoupling(filepath: string): number {
     try {
         const content = readFileSync(filepath, { encoding: 'utf8', flag: 'r' });
@@ -17,12 +28,19 @@ export function calculateEfferentCoupling(filepath: string): number {
         for (const match of imports) {
             const importPath = match[2].trim();
             
-            // Extrage numele clasei din import
-            const parts = importPath.split('.');
-            const className = parts[parts.length - 1];
+            // Pentru static imports, extrage clasa corect
+            let className: string;
+            if (match[1]) { // static import
+                const parts = importPath.split('.');
+                // Pentru static imports, clasa e penultima parte
+                className = parts[parts.length - 2];
+            } else {
+                const parts = importPath.split('.');
+                className = parts[parts.length - 1];
+            }
             
             // Skip wildcard imports și pachete Java standard
-            if (className !== '*' && !importPath.startsWith('java.')) {
+            if (className && className !== '*' && !importPath.startsWith('java.')) {
                 dependencies.add(className);
             }
         }
@@ -65,9 +83,10 @@ export function calculateEfferentCoupling(filepath: string): number {
             }
             
             // Pattern-uri pentru detectarea utilizării claselor
+            // TOATE pattern-urile trebuie să aibă flag-ul 'g' pentru matchAll
             const patterns = [
                 // Declarații de variabile: ClassName variableName
-                /^\s*(\w+)\s+\w+\s*[;=]/,
+                /^\s*(\w+)\s+\w+\s*[;=]/g,
                 // Declarații cu generice: List<ClassName>
                 /<(\w+)>/g,
                 // Instanțieri: new ClassName()
@@ -75,11 +94,11 @@ export function calculateEfferentCoupling(filepath: string): number {
                 // Parametri de metodă: methodName(ClassName param)
                 /\(\s*(\w+)\s+\w+(?:\s*,\s*(\w+)\s+\w+)*\s*\)/g,
                 // Return type: public ClassName methodName()
-                /(?:public|protected|private)\s+(\w+)\s+\w+\s*\(/,
+                /(?:public|protected|private)\s+(\w+)\s+\w+\s*\(/g,
                 // Throws declaration: throws ClassName
-                /throws\s+([\w,\s]+)/,
+                /throws\s+([\w,\s]+)/g,
                 // Cast: (ClassName) object
-                /\(\s*(\w+)\s*\)/,
+                /\(\s*(\w+)\s*\)/g,
                 // Static method calls: ClassName.method()
                 /(\w+)\.\w+\s*\(/g,
                 // Type declarations in generics: Map<String, ClassName>
@@ -120,6 +139,7 @@ export function calculateEfferentCoupling(filepath: string): number {
         return finalDependencies.size;
         
     } catch (error) {
+        console.error('Error in calculateEfferentCoupling:', error);
         return -1;
     }
 }
@@ -127,13 +147,10 @@ export function calculateEfferentCoupling(filepath: string): number {
 function isValidJavaClass(name: string): boolean {
     if (!name || name.length === 0) {return false;}
     
-    // Trebuie să înceapă cu literă mare (convenție Java)
-    if (!/^[A-Z]/.test(name)) {return false;}
-    
-    // Trebuie să fie un identificator Java valid
+    // Verifică dacă e un identificator Java valid
     if (!/^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(name)) {return false;}
     
-    // Exclude keyword-uri Java
+    // Exclude keyword-uri Java (acestea nu sunt clase valide)
     const javaKeywords = new Set([
         'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch', 'char',
         'class', 'const', 'continue', 'default', 'do', 'double', 'else', 'enum',
@@ -141,15 +158,19 @@ function isValidJavaClass(name: string): boolean {
         'import', 'instanceof', 'int', 'interface', 'long', 'native', 'new', 'package',
         'private', 'protected', 'public', 'return', 'short', 'static', 'strictfp',
         'super', 'switch', 'synchronized', 'this', 'throw', 'throws', 'transient',
-        'try', 'void', 'volatile', 'while'
+        'try', 'void', 'volatile', 'while', 'true', 'false', 'null'
     ]);
     
-    return !javaKeywords.has(name.toLowerCase());
+    if (javaKeywords.has(name)) {return false;}
+    
+    // Pentru dependențe externe, de obicei încep cu literă mare (convenție Java)
+    // dar nu e obligatoriu, așa că acceptăm toate identificatorii valizi
+    return true;
 }
 
 function getCurrentClassName(content: string): string {
     const classMatch = content.match(/(?:public\s+)?(?:abstract\s+)?(?:final\s+)?class\s+(\w+)/);
-    if (classMatch){ return classMatch[1];}
+    if (classMatch) {return classMatch[1];}
     
     const interfaceMatch = content.match(/(?:public\s+)?interface\s+(\w+)/);
     if (interfaceMatch) {return interfaceMatch[1];}

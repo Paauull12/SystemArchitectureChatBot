@@ -1,5 +1,16 @@
 import { readFileSync } from 'fs';
-
+/**
+* Cognitive Complexity (CogC) - Mental Effort Required
+* 
+* Measures how difficult a function is to understand by humans.
+* Unlike Cyclomatic Complexity, it considers nested structures and cognitive burden.
+* 
+* Interpretation based on industry standards:
+* - Very Good: CogC ≤ 5 (easy to understand)
+* - Acceptable: 6 ≤ CogC ≤ 10 (reasonable complexity)
+* - Warning: 11 ≤ CogC ≤ 20 (difficult to understand)
+* - Bad: CogC > 20 (very hard to understand, refactoring required)
+*/
 export function calculateCognitiveComplexity(filepath: string): number {
     try {
         // Doar citește, nu modifică
