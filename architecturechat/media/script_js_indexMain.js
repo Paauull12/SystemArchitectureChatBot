@@ -46,6 +46,6 @@ window.addEventListener('message', (event) => {
   if (message.command === 'receiveMessage') {
     addMessageToUI(message.message);
   } else if (message.command === 'clearChat') {
-    messagesContainer.innerHTML = '<div class="welcome-message">Architecture Chat. Cum te pot ajuta astăzi?</div>';
+    messagesContainer.innerHTML = '<div class="welcome-message">Architecture 1Chat. Cum te pot ajuta astăzi?</div>';
   }
 });
