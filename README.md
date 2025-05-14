@@ -65,13 +65,13 @@ Meet the team behind **ChatBot for Architecture**:
 
 ---
 
-### 👤 Name 4  
-**Role:** [Your Role Here]  
-**Bio:** A brief description
+### 👤 Drăghiță Claudiu - Ionuț
+**Role:**  TypeScript Developer (AI Tooling) 
+**Bio:** Student passionate about AI and developing useful applications.
 
 **Links:**  
-- [🔗 LinkedIn](https://linkedin.com/in/username4)  
-- [💻 GitHub](https://github.com/username4)
+- [🔗 LinkedIn](https://www.linkedin.com/in/claudiu-dr%C4%83ghi%C8%9B%C4%83-a39199295/) 
+- [💻 GitHub](https://github.com/claudiu28)
 
 ## Contact
 
