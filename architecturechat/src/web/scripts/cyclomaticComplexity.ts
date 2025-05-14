@@ -1,6 +1,17 @@
-// calculateCyclomaticComplexity.ts
 import { readFileSync } from 'fs';
 
+/**
+ * Cyclomatic Complexity (CC) - Decision Complexity
+ * 
+ * Counts the number of independent paths through a method's source code.
+ * Indicates code complexity and testing difficulty.
+ * 
+ * Interpretation based on industry standards:
+ * - Very Good: CC ≤ 5 (simple, easy to test)
+ * - Acceptable: 6 ≤ CC ≤ 10 (moderate complexity)
+ * - Warning: 11 ≤ CC ≤ 15 (complex, difficult to test)
+ * - Bad: CC > 15 (very complex, refactoring recommended)
+ */
 function calculateCyclomaticComplexity(filepath: string): number {
     try {
         // Citește conținutul fișierului

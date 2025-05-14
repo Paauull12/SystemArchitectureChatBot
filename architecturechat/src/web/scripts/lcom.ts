@@ -1,4 +1,16 @@
 import { readFileSync } from "fs";
+/**
+ * Lack of Cohesion of Methods (LCOM) - Class Unity
+ * 
+ * Measures how well class methods use instance variables together.
+ * Higher values indicate the class might need to be split.
+ * 
+ * Interpretation based on industry standards:
+ * - Very Good: LCOM = 0 (perfect cohesion)
+ * - Acceptable: 1 ≤ LCOM ≤ 2 (good cohesion)
+ * - Warning: 3 ≤ LCOM ≤ 5 (low cohesion)
+ * - Bad: LCOM > 5 (poor cohesion, split recommended)
+ */
 
 export function calculateLCOM(filepath: string): number {
     try {

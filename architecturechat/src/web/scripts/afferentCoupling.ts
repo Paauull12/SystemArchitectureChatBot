@@ -1,5 +1,17 @@
 import { readFileSync } from "fs";
 
+/**
+ * Afferent Coupling (Ca) - Incoming Dependencies
+ * 
+ * Measures the number of classes that depend on a given class.
+ * Indicates the class's responsibility and potential impact of changes.
+ * 
+ * Interpretation based on industry standards:
+ * - Very Good: Ca ≤ 3 (excellent isolation, minimal impact)
+ * - Acceptable: 4 ≤ Ca ≤ 7 (normal level for most classes)
+ * - Warning: 8 ≤ Ca ≤ 12 (needs monitoring, possible refactoring)
+ * - Bad: Ca > 12 (too many dependencies, refactoring recommended)
+ */
 export function calculateAfferentCoupling(filepath: string): number {
     try {
         // Citește conținutul clasei țintă

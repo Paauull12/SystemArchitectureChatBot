@@ -1,5 +1,17 @@
 import { readFileSync } from "fs";
 
+/**
+ * Weighted Method Count (WMC) - Class Complexity Sum
+ * 
+ * Sum of complexities of all methods in a class.
+ * Indicates overall class complexity and maintenance difficulty.
+ * 
+ * Interpretation based on industry standards:
+ * - Very Good: WMC ≤ 10 (simple class)
+ * - Acceptable: 11 ≤ WMC ≤ 20 (moderate complexity)
+ * - Warning: 21 ≤ WMC ≤ 40 (complex class)
+ * - Bad: WMC > 40 (overly complex, split recommended)
+ */
 export function calculateWMC(filepath: string): number {
     try {
         // Citire read-only fără a modifica fișierul
