@@ -37,6 +37,7 @@ Meet the team behind **ChatBot for Architecture**:
 
 ### 👤 Name 1  
 **Role:** [Your Role Here]  
+
 **Bio:** A brief description.
 
 **Links:**  
@@ -47,6 +48,7 @@ Meet the team behind **ChatBot for Architecture**:
 
 ### 👤 Cărbune Ecaterina 
 **Role:** Data analyst  
+
 **Bio:** Student at Babeș-Bolyai University
 
 **Links:**  
@@ -57,6 +59,7 @@ Meet the team behind **ChatBot for Architecture**:
 
 ### 👤 Asandei Georgiana  
 **Role:** Data analyst  
+
 **Bio:** I am a curious and passionate programmer who enjoys sunny days and bike rides, currently studying CS at BBU.
 
 **Links:**  
@@ -67,6 +70,7 @@ Meet the team behind **ChatBot for Architecture**:
 
 ### 👤 Drăghiță Claudiu - Ionuț
 **Role:**  TypeScript Developer (AI Tooling)
+
 **Bio:** Student passionate about AI and developing useful applications.
 
 **Links:**  
