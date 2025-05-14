@@ -37,7 +37,8 @@ Meet the team behind **ChatBot for Architecture**:
 
 ### 👤 Name 1  
 **Role:** [Your Role Here]  
-**Bio:** A brief description 
+**Bio:** A brief description.
+
 **Links:**  
 - [🔗 LinkedIn](https://linkedin.com/in/username1)  
 - [💻 GitHub](https://github.com/username1)
@@ -47,6 +48,7 @@ Meet the team behind **ChatBot for Architecture**:
 ### 👤 Name 2  
 **Role:** [Your Role Here]  
 **Bio:** A brief description 
+
 **Links:**  
 - [🔗 LinkedIn](https://linkedin.com/in/username2)  
 - [💻 GitHub](https://github.com/username2)
