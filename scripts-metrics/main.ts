@@ -2,11 +2,31 @@ import * as readline from 'readline';
 import * as fs from 'fs';
 import * as path from 'path';
 import { calculateWMC } from './weightedMethodsClass';
+import { calculateLCOM } from './lcom';
+import { calculateEfferentCoupling } from './efferentCoupling';
+import { calculateCyclomaticComplexity } from './cyclomaticComplexity';
+import { calculateCognitiveComplexity } from './cognitiveComplexity';
+import { calculateAfferentCoupling } from './afferentCoupling';
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+
+interface Metrics {
+    wmc: number;
+    lcom: number;
+    efferentCoupling: number;
+    cyclomaticComplex: number;
+    cognitiveComplex: number;
+    afferentCoupling: number;
+}
+
+interface ResultObject {
+    metrics: Metrics;
+    problem: string;
+    solution: string;
+}
 
 function readIndex(folderPath: string): number {
     const indexPath = path.join(folderPath, 'index.txt');
@@ -39,16 +59,37 @@ const ask = (prompt: string, testFileFolderPath: string, isFile: boolean): Promi
         rl.question(prompt, (input) => {
             
             //input here should be a valid fileName from the testFileFolder
-            if(isFile){
+            if(isFile && input !== 'stop'){
 
-                const javaFile = path.join(testFileFolderPath, prompt);
+                const javaFile = path.join(testFileFolderPath, input);
+                console.log("path found to file: " + javaFile);
                 if(!fs.existsSync(javaFile)){
                     console.log("Acest fisier nu este gasit in folder ul cu test");
                     return resolve("{}");
                 }
 
+                console.log("path found to file: " + javaFile);
                 let resultWMC: number = calculateWMC(javaFile);
+                let resultLcom: number = calculateLCOM(javaFile);
+                let resultEfferent: number = calculateEfferentCoupling(javaFile);
+                let resultCyclomatic: number = calculateCyclomaticComplexity(javaFile);
+                let resultCognitiveComplexity: number = calculateCognitiveComplexity(javaFile);
+                let resultAfferentCoupling: number = calculateAfferentCoupling(javaFile);
 
+                const resultObject: ResultObject = {
+                    metrics: {
+                        wmc: resultWMC,
+                        lcom: resultLcom,
+                        efferentCoupling: resultEfferent,
+                        cyclomaticComplex: resultCyclomatic,
+                        cognitiveComplex: resultCognitiveComplexity,
+                        afferentCoupling: resultAfferentCoupling
+                    },
+                    problem: "",
+                    solution: ""
+                };
+
+                return resolve(JSON.stringify(resultObject));
             }
             return resolve(input);
         });
@@ -78,7 +119,7 @@ async function main() {
     } else {
         console.log("Directory for user " + name + " exists");
     }
-
+    ///home/paaull/aiprojectvsextension/scripts-metrics/testFiles/GenericHibernateRepo.java
     let currentIndex = readIndex(userPath);
     console.log("Current index for the user " + name + " is " + currentIndex);
 
@@ -89,7 +130,15 @@ async function main() {
         if (input.trim() === "" || input.trim().toLowerCase() === "stop") {
             stop = true;
         } else {
-            console.log(`You entered: ${input}`);
+            const resultObject = JSON.parse(input);
+
+            console.log("Result is: ")
+            console.log(JSON.stringify(resultObject, null, 2));
+
+            // Save to file
+            //fs.writeFileSync('result.json', JSON.stringify(resultObject, null, 2), 'utf-8');
+
+
         }
     }
 

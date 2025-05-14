@@ -1,0 +1,2 @@
+Problem: the class is too big 
+Solution: split in more classes
