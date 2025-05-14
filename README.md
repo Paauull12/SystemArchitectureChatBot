@@ -45,13 +45,13 @@ Meet the team behind **ChatBot for Architecture**:
 
 ---
 
-### 👤 Name 2  
-**Role:** [Your Role Here]  
-**Bio:** A brief description 
+### 👤 Cărbune Ecaterina 
+**Role:** Data analyst
+**Bio:** Student at Babeș-Bolyai University.
 
 **Links:**  
-- [🔗 LinkedIn](https://linkedin.com/in/username2)  
-- [💻 GitHub](https://github.com/username2)
+- [🔗 LinkedIn](https://www.linkedin.com/in/ecaterina-carbune-67061b339)  
+- [💻 GitHub](https://github.com/Ec4ter1)
 
 ---
 
