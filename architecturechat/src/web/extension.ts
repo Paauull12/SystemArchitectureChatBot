@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import { getHtml } from './templates/htmlTemplate';
 
-
 export function activate(context: vscode.ExtensionContext) {
   console.log('Extension "architecturechat" is now active in the web extension host!');
 
@@ -76,14 +75,39 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
           case 'initialized':
             this._restoreMessages();
             return;
+          case 'chooseFileNormal':
+            this._handleChooseFileNormal();
+            return;  
         }
       }
     );
   }
 
 
+  private async _handleChooseFileNormal(){
+    const fileUris = await vscode.window.showOpenDialog({
+      canSelectMany: true,
+      openLabel: "Choose .java files",
+      filters : {
+        "Java Files" : ['java']
+      }
+    });
+
+    if(fileUris && fileUris.length > 0){
+      fileUris.forEach(uri => {
+        const filePath = uri.fsPath;
+        const fileName = filePath.split(/[/\\]/).pop() || 'unknown';
+        vscode.window.showInformationMessage(`Fișierul a fost încărcat cu succes!\nNume: ${fileName}`);
+        vscode.window.showInformationMessage(`Calea completă: ${filePath}`);
+      });
+    }else{
+      vscode.window.showErrorMessage("Nu s-au SELECTAT FISIERE!");
+    }
+
+  }
+
   private _handleIncomingMessage(text: string): void {
-    if (!text || !this._view) return;
+    if (!text || !this._view) {return;}
 
     const userMessage: ChatMessage = { 
       text, 
@@ -115,7 +139,7 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
   }
 
   private _restoreMessages(): void {
-    if (!this._view) return;
+    if (!this._view) {return;}
     
     this._messages.forEach(msg => {
       this._view!.webview.postMessage({
@@ -137,7 +161,7 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
 
 
   public shareCode(code: string): void {
-    if (!this._view) return;
+    if (!this._view) {return;}
     
     const formattedCode = '```\n' + code + '\n```';
     const codeMessage: ChatMessage = { 
