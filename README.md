@@ -46,8 +46,8 @@ Meet the team behind **ChatBot for Architecture**:
 ---
 
 ### 👤 Cărbune Ecaterina 
-**Role:** Data analyst
-**Bio:** Student at Babeș-Bolyai University.
+**Role:** Data analyst  
+**Bio:** Student at Babeș-Bolyai University
 
 **Links:**  
 - [🔗 LinkedIn](https://www.linkedin.com/in/ecaterina-carbune-67061b339)  
