@@ -1,6 +1,7 @@
 import * as readline from 'readline';
 import * as fs from 'fs';
 import * as path from 'path';
+import { calculateWMC } from './weightedMethodsClass';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -33,22 +34,40 @@ function updateIndex(folderPath: string, newIndex: number): void {
     }
 }
 
-const ask = (prompt: string): Promise<string> => {
+const ask = (prompt: string, testFileFolderPath: string, isFile: boolean): Promise<string> => {
     return new Promise((resolve) => {
         rl.question(prompt, (input) => {
-            console.log("inside here");
+            
+            //input here should be a valid fileName from the testFileFolder
+            if(isFile){
+
+                const javaFile = path.join(testFileFolderPath, prompt);
+                if(!fs.existsSync(javaFile)){
+                    console.log("Acest fisier nu este gasit in folder ul cu test");
+                    return resolve("{}");
+                }
+
+                let resultWMC: number = calculateWMC(javaFile);
+
+            }
             return resolve(input);
         });
     });
 };
 
 async function main() {
-    const name = await ask("What is your name? ");
+    const name = await ask("What is your name? ", "", false);
     console.log(`Hello ${name}`);
 
     const resultDir = path.join(__dirname, 'results');
     if (!fs.existsSync(resultDir)) {
         fs.mkdirSync(resultDir, { recursive: true });
+        console.log("Created the directory");
+    }
+
+    const testFileDir = path.join(__dirname, 'testFiles');
+    if (!fs.existsSync(testFileDir)) {
+        fs.mkdirSync(testFileDir, { recursive: true });
         console.log("Created the directory");
     }
 
@@ -66,7 +85,7 @@ async function main() {
     let stop = false;
 
     while (!stop) {
-        const input = await ask("Enter a filename or >stop<: ");
+        const input = await ask("Enter a filename or >stop<: ", testFileDir, true);
         if (input.trim() === "" || input.trim().toLowerCase() === "stop") {
             stop = true;
         } else {
