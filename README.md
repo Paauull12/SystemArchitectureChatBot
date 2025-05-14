@@ -55,13 +55,13 @@ Meet the team behind **ChatBot for Architecture**:
 
 ---
 
-### 👤 Name 3  
-**Role:** [Your Role Here]  
-**Bio:** A brief description
+### 👤 Asandei Georgiana  
+**Role:** Data analyst  
+**Bio:** I am a curious and passionate programmer who enjoys sunny days and bike rides, currently studying CS at BBU.
 
 **Links:**  
-- [🔗 LinkedIn](https://linkedin.com/in/username3)  
-- [💻 GitHub](https://github.com/username3)
+- [🔗 LinkedIn](https://linkedin.com/in/georgiana-asandei-079597293)  
+- [💻 GitHub](https://github.com/geoqiq)
 
 ---
 
