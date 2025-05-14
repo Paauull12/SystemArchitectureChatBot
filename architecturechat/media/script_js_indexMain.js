@@ -3,11 +3,19 @@ const messagesContainer = document.getElementById('messages');
 const messageInput = document.getElementById('messageInput');
 const sendButton = document.getElementById('sendButton');
 
+const chooseFileNormal = document.getElementById('chooseFileNormal');
+
 vscode.postMessage({ command: 'initialized' });
 
 function sendMessage() {
   const text = messageInput.value;
-  if (text.trim() === '') return;
+
+  if(chooseFileNormal.checked){
+    vscode.postMessage({command: 'chooseFileNormal'});
+    return;
+  }
+
+  if (text.trim() === '') {return;}
   vscode.postMessage({ command: 'sendMessage', text });
   messageInput.value = '';
 }
@@ -38,7 +46,7 @@ function addMessageToUI(message) {
 
 sendButton.addEventListener('click', sendMessage);
 messageInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') sendMessage();
+  if (e.key === 'Enter') {sendMessage();}
 });
 
 window.addEventListener('message', (event) => {
