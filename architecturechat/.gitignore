@@ -3,7 +3,10 @@ out
 dist/
 *.vsix
 
-.vscode-test-web
+.vscode-test-web/
+.vscode/
+.vscode-test-web/*
+.vscode/*
 
 # Dependencies
 node_modules/
