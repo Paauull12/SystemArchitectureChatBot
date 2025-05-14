@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class ReportService {
     public void generateDailyReport() {
         File file = new File("C:/reports/daily.txt");
