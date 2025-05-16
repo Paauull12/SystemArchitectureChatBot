@@ -36,7 +36,7 @@ Meet the team behind **ChatBot for Architecture**:
 ---
 
 ### 👤 Dobrescu Andrei-Paul
-**Role:** Coding everything there is to code :)) 
+**Role:** Team Lead
 
 **Bio:** Student at BBU enjoy working with a lot of different systems. Integrating Ai in as many places as I can :)).
 
