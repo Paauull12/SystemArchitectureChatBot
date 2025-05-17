@@ -37,8 +37,14 @@ function addMessageToUI(message) {
   msgEl.className = 'message ' + message.sender;
   
   if (message.isCode) {
+    // Conținut cod - afișează ca HTML escaped
     msgEl.innerHTML = '<pre><code>' + escapeHtml(message.text) + '</code></pre>';
+  } else if (message.sender === 'bot') {
+    // Pentru mesajele de la bot, convertim Markdown în HTML
+    // Folosim marked.parse() pentru a converti Markdown în HTML
+    msgEl.innerHTML = marked.parse(message.text);
   } else {
+    // Pentru mesajele utilizatorului, păstrăm formatul simplu
     msgEl.innerHTML = escapeHtml(message.text).replace(/\n/g, '<br>');
   }
   

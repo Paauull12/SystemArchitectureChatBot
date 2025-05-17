@@ -11,7 +11,7 @@ import { calculateLCOM } from './metrics/lcom';
 import { calculateTightClassCohesion } from './metrics/tcc';
 import { calculateWMC } from './metrics/weightedMethodsClass';
 
-interface FileMetrics {
+export interface FileMetrics {
     afferentCoupling: number;
     cognitiveComplexity: number;
     cyclomaticComplexity: number;
@@ -21,6 +21,18 @@ interface FileMetrics {
     tcc: number;
     wmc: number;
     timestamp: number;
+}
+
+export function toStringFileMetrics(input: FileMetrics): string{
+    return "\nFile Metrics: "
+        + "\nAfferentCoupling: "  + input.afferentCoupling
+        + "\nCognitiveComplexity: " + input.cognitiveComplexity
+        + "\nCyclomaticComplexity: " + input.cyclomaticComplexity
+        + "\nEfferentCoupling: " + input.efferentCoupling
+        + "\nInstability: " + input.instability
+        + "\nLCOM: " + input.lcom
+        + "\nTCC: " + input.tcc
+        + "\nWMC: " + input.wmc;
 }
 
 export class GitLikeMetricSystem {

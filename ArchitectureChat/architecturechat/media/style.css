@@ -215,3 +215,155 @@ code {
 .clear-button:hover {
   background-color: var(--vscode-button-secondaryHoverBackground, var(--vscode-button-hoverBackground));
 }
+
+/* ------------- Markdown Styling ------------- */
+
+/* Stilurile pentru elementele Markdown în mesajele botului */
+.message.bot h1, 
+.message.bot h2, 
+.message.bot h3, 
+.message.bot h4, 
+.message.bot h5, 
+.message.bot h6 {
+  margin-top: 0.8em;
+  margin-bottom: 0.4em;
+  font-weight: bold;
+  color: var(--vscode-foreground);
+  line-height: 1.3;
+}
+
+.message.bot h1 { font-size: 1.5em; }
+.message.bot h2 { font-size: 1.3em; }
+.message.bot h3 { font-size: 1.2em; }
+.message.bot h4 { font-size: 1.1em; }
+.message.bot h5 { font-size: 1em; font-weight: bold; }
+.message.bot h6 { font-size: 0.9em; font-weight: bold; }
+
+.message.bot p {
+  margin: 0.5em 0;
+  line-height: 1.5;
+}
+
+.message.bot ul, 
+.message.bot ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.message.bot li {
+  margin-bottom: 0.25em;
+  line-height: 1.5;
+}
+
+/* Păstrăm stilurile existente pentru pre și code, 
+   dar ne asigurăm că funcționează corect cu Markdown */
+.message.bot pre {
+  background-color: var(--vscode-textBlockQuote-background);
+  padding: 10px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 8px 0;
+  border: 1px solid var(--vscode-input-border);
+}
+
+.message.bot code {
+  font-family: var(--vscode-editor-font-family);
+  font-size: var(--vscode-editor-font-size);
+  background-color: var(--vscode-textCodeBlock-background, var(--vscode-textBlockQuote-background));
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+.message.bot pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+.message.bot blockquote {
+  border-left: 4px solid var(--vscode-textBlockQuote-border, var(--vscode-input-border));
+  background-color: var(--vscode-textBlockQuote-background);
+  padding: 0.5em 1em;
+  margin: 0.5em 0;
+  color: var(--vscode-textBlockQuote-foreground, var(--vscode-foreground));
+}
+
+.message.bot a {
+  color: var(--vscode-textLink-foreground, var(--vscode-focusBorder));
+  text-decoration: none;
+}
+
+.message.bot a:hover {
+  text-decoration: underline;
+  color: var(--vscode-textLink-activeForeground, var(--vscode-focusBorder));
+}
+
+.message.bot table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.message.bot th, 
+.message.bot td {
+  border: 1px solid var(--vscode-input-border);
+  padding: 6px 12px;
+  text-align: left;
+}
+
+.message.bot th {
+  background-color: var(--vscode-input-background);
+  font-weight: bold;
+}
+
+.message.bot tr:nth-child(even) {
+  background-color: var(--vscode-list-hoverBackground, rgba(128, 128, 128, 0.05));
+}
+
+.message.bot hr {
+  border: none;
+  border-top: 1px solid var(--vscode-input-border);
+  margin: 1em 0;
+}
+
+/* Stiluri pentru elemente suplimentare de Markdown */
+.message.bot img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 0.5em 0;
+}
+
+.message.bot kbd {
+  background-color: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  font-family: var(--vscode-editor-font-family);
+  font-size: 0.9em;
+  padding: 0.1em 0.4em;
+}
+
+.message.bot mark {
+  background-color: var(--vscode-editor-findMatchHighlightBackground, #ffdf0055);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/* Îmbunătățiri pentru lizibilitatea codului în blocurile de cod Markdown */
+.message.bot pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.message.bot pre::-webkit-scrollbar-track {
+  background: var(--vscode-scrollbarSlider-background);
+  border-radius: 4px;
+}
+
+.message.bot pre::-webkit-scrollbar-thumb {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+  border-radius: 4px;
+}
+
+.message.bot pre::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}

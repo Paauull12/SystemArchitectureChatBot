@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { getHtml } from './templates/htmlTemplate';
 import * as path from 'path';
-import { GitLikeMetricSystem } from './gitLikeSystemForMetrics';
+import { GitLikeMetricSystem, FileMetrics, toStringFileMetrics } from './gitLikeSystemForMetrics';
 
 let metricSystem: GitLikeMetricSystem | undefined;
 
@@ -74,72 +74,100 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
             return;
           case 'chooseFileNormal':
             this._handleChooseFileNormal(message.text);
+            return;
+          case 'chooseFileFancy':
+            this._handleChooseFancyFile(message.text);
             return;  
-		  case 'clearChat':
-			this.clearChat();
-			return;
+          case 'clearChat':
+            this.clearChat();
+            return;
         }
       }
     );
   }
 
   public clearChat(): void {
-	this._messages = [];
-	this._saveMessages();
+    this._messages = [];
+    this._saveMessages();
 
-	if(this._view) {
-		this._view.webview.postMessage({
-			command: 'clearChat'
-		});
-	}
+    if(this._view) {
+      this._view.webview.postMessage({
+        command: 'clearChat'
+      });
+    }
   }
 
-  private async _handleChooseFileNormal(text: string) {
-    const fileUris = await vscode.window.showOpenDialog({
-      canSelectMany: true,
-      openLabel: "Choose .java files",
-      filters: {
-        "Java Files": ['java']
-      }
+  private async _handleChooseFancyFile(text: string){
+    const mapulAmuzant: Map<string, FileMetrics> | undefined = metricSystem?.getAllMetrics();
+  
+    if(!mapulAmuzant){
+      this._handleIncomingMessage(text);
+      return;
+    }
+
+    let msgTotal = "";
+    for (const [key, value] of mapulAmuzant.entries()){
+      msgTotal += "\n File Path: \n" + key;
+      msgTotal += "\n" + toStringFileMetrics(value) + "\n";
+    }
+
+    const response = await fetch('http://localhost:5000/api/getfilessmart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({text: msgTotal})
     });
 
-    if (fileUris && fileUris.length > 0) {
-	    const fileNames: string[] = fileUris.map(uri => uri.fsPath);
-	 
-	    const fileNamesString = fileNames.join(', ');
-      const message = `Selected files: ${fileNamesString}`;
+    const data = await response.json() as { message: string[] };
 
-      const customFileArray: CustomFile[] = [];
+    this._handleChooseFileNormal(text, data.message);
+  }
 
-      for(let file of fileNames){
+  private async _handleChooseFileNormal(text: string, filePaths?: string[]) {
+    let fileNames: string[] = [];
+    if(!filePaths){
+      const fileUris = await vscode.window.showOpenDialog({
+          canSelectMany: true,
+          openLabel: "Choose .java files",
+          filters: {
+            "Java Files": ['java']
+          }
+        }); 
+    
 
-        const file_code = await this._findFileByPathAndGetContent(file);
-
-        const newCustomFile: CustomFile = {
-          fileName: file,
-          code: file_code
-        };
-
-        customFileArray.push(newCustomFile);
+      if (fileUris && fileUris.length > 0) {
+        fileNames = fileUris.map(uri => uri.fsPath);
+      } else {
+        this._handleIncomingMessage(text + '\n\n');
+        return;
       }
-      
-      let strToShow = "\nThese are the file context: \n";
-      for (const cstFile of customFileArray) {
-        strToShow += "File name: " + cstFile.fileName + "\n\n";
-        strToShow += "File content:\n" + cstFile.code + "\n\n";
-        let fileStuff = metricSystem?.getMetricsForFile(cstFile.fileName);
-        if(fileStuff) {
-          strToShow += "File metrics:\n" + fileStuff.afferentCoupling + "\n";
-        }
+    } else {
+      if(filePaths.length < 0){
+        this._handleIncomingMessage(text + '\n\n');
+        return;
       }
-
-      let userInput = "This is the user input: " + text + "\n";
-
-      this._handleIncomingMessage(
-          userInput + '\n\n' + strToShow + '\n\n',
-          customFileArray
-        );
+      fileNames = filePaths;
     }
+
+    const customFileArray: CustomFile[] = [];
+
+    for(let file of fileNames){
+
+      const file_code = await this._findFileByPathAndGetContent(file);
+
+      const newCustomFile: CustomFile = {
+        fileName: file,
+        code: file_code
+      };
+
+      customFileArray.push(newCustomFile);
+    }
+
+    this._handleIncomingMessage(
+        text + '\n\n',
+        customFileArray
+    );
   }
 
   private async _findFileByPathAndGetContent(path: string): Promise<string>{
@@ -184,13 +212,26 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
     // In a real implementation, you would process the message here
     // and generate an intelligent response
     //const response = `Răspuns la: ${text}`;
+    // 
+
+    let completePrompt = "";
+    let userInput = "This is the user input: " + text + "\n";
+    completePrompt += userInput;
+    if(fileContext){
+      let strToShow = "These are the file context: \n";
+      for (const cstFile of fileContext) {
+        strToShow += "File name: " + cstFile.fileName + "\n";
+        strToShow += "File content:\n" + cstFile.code + "\n";
+      }
+      completePrompt += '\n' + strToShow;
+    }
 
     const response = await fetch('http://localhost:5000/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({text: text})
+      body: JSON.stringify({text: completePrompt})
     });
 
     const data = await response.json() as { message: string };

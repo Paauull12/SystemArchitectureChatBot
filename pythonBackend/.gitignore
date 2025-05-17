@@ -1,3 +1,4 @@
 .env
+volumes/
 venv/
 __pycache__/

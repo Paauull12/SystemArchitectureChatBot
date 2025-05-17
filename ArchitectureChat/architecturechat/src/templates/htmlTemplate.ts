@@ -6,6 +6,8 @@ export function getHtml(styleUri: string, scriptUri: string): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Architecture Chat</title>
     <link href="${styleUri}" rel="stylesheet">
+    <!-- Adăugăm biblioteca marked.js pentru conversia Markdown în HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
   </head>
   <body>
     <div class="chat-container">
