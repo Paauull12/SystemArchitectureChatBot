@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { getHtml } from './templates/htmlTemplate';
 import * as path from 'path';
 import { GitLikeMetricSystem, FileMetrics, toStringFileMetrics } from './gitLikeSystemForMetrics';
+import fetch from 'node-fetch'
 
 let metricSystem: GitLikeMetricSystem | undefined;
 
@@ -116,7 +117,7 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({text: msgTotal})
+      body: JSON.stringify({text: msgTotal}),
     });
 
     const data = await response.json() as { message: string[] };
@@ -231,7 +232,7 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({text: completePrompt})
+      body: JSON.stringify({text: completePrompt}),
     });
 
     const data = await response.json() as { message: string };
