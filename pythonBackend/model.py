@@ -70,7 +70,8 @@ class RAG():
         self.__context_from_milvus = context_from_milvus
         self.__model = self.__set_llm_model(model_name, creativeness)
         self.__docs_list = self.__get_docs_list(docs_dir)
-        self.__retriever = self.__set_retriever(k=n_retrievals)
+        if context_from_milvus:
+            self.__retriever = self.__set_retriever(k=n_retrievals)
         self.__chain = self.__build_chain()
 
     def __set_llm_model(self, model_name="gpt-4.1-nano", temperature: float = 0.7):

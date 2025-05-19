@@ -7,6 +7,7 @@ import { calculateEfferentCoupling } from './efferentCoupling';
 import { calculateCyclomaticComplexity } from './cyclomaticComplexity';
 import { calculateCognitiveComplexity } from './cognitiveComplexity';
 import { calculateAfferentCoupling } from './afferentCoupling';
+import { randomBytes } from 'crypto';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -58,7 +59,6 @@ const ask = (prompt: string, testFileFolderPath: string, isFile: boolean): Promi
     return new Promise((resolve) => {
         rl.question(prompt, (input) => {
             
-            //input here should be a valid fileName from the testFileFolder
             if(isFile && input !== 'stop'){
 
                 const javaFile = path.join(testFileFolderPath, input);
@@ -135,13 +135,12 @@ async function main() {
             console.log("Result is: ")
             console.log(JSON.stringify(resultObject, null, 2));
 
-            // Save to file
-            //fs.writeFileSync('result.json', JSON.stringify(resultObject, null, 2), 'utf-8');
-
-
+            fs.writeFileSync(userPath +'/result_' + name + currentIndex + randomBytes(2) +'.json', JSON.stringify(resultObject, null, 2), 'utf-8');
+            currentIndex++;
         }
     }
 
+    updateIndex(userPath, currentIndex);
     rl.close();
 }
 

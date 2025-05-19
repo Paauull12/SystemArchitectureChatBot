@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 11,
+    "lcom": 10,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 6,
+    "cognitiveComplex": 12,
+    "afferentCoupling": 0
+  },
+  "problem": "",
+  "solution": ""
+}
