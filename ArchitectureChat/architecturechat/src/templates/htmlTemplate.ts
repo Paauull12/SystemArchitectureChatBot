@@ -23,6 +23,10 @@ export function getHtml(styleUri: string, scriptUri: string): string {
           <input type="checkbox" id="chooseFileNormal" class="butonCheck">
           <span class="checkbox-label">Choose File</span>
         </label>
+        <label class="checkbox-wrapper">
+          <input type="checkbox" id="chooseFileFancy" class="butonCheck">
+          <span class="checkbox-label">Choose File Fancy</span>
+        </label>
       </div>
       <div class="input-area">
         <input type="text" id="messageInput" placeholder="Type a message...">

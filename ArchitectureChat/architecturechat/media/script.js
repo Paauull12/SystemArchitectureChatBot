@@ -4,7 +4,7 @@ const messageInput = document.getElementById('messageInput');
 const sendButton = document.getElementById('sendButton');
 const chooseFileNormal = document.getElementById('chooseFileNormal');
 const clearButton = document.getElementById('clearButton');
-
+const chooseFileFancy = document.getElementById('chooseFileFancy');
 vscode.postMessage({ command: 'initialized' });
 
 function sendMessage() {
@@ -14,6 +14,13 @@ function sendMessage() {
     if(text !== ''){
       vscode.postMessage({command: 'chooseFileNormal', text});
       chooseFileNormal.checked = false;
+      messageInput.value = '';
+    }
+    return;
+  }else if(chooseFileFancy.checked){
+    if(text !== ''){
+      vscode.postMessage({command: 'chooseFileFancy', text});
+      chooseFileFancy.checked = false;
       messageInput.value = '';
     }
     return;
@@ -55,6 +62,18 @@ function addMessageToUI(message) {
   messagesContainer.appendChild(msgEl);
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+
+chooseFileNormal.addEventListener('change', () => {
+  if (chooseFileNormal.checked) {
+    chooseFileFancy.checked = false;
+  }
+});
+
+chooseFileFancy.addEventListener('change', () => {
+  if (chooseFileFancy.checked) {
+    chooseFileNormal.checked = false;
+  }
+});
 
 sendButton.addEventListener('click', sendMessage);
 
