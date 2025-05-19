@@ -70,7 +70,8 @@ class RAG():
         self.__context_from_milvus = context_from_milvus
         self.__model = self.__set_llm_model(model_name, creativeness)
         self.__docs_list = self.__get_docs_list(docs_dir)
-        if context_from_milvus:
+        if self.__context_from_milvus:
+            print("we are here from another")
             self.__retriever = self.__set_retriever(k=n_retrievals)
         self.__chain = self.__build_chain()
 
@@ -148,7 +149,7 @@ class RAG():
             }
 
             if self.__context_from_milvus:
-                input_payload["context"] = self.__retriever.get_relevant_documents(question)
+                input_payload["context"] = self.__retriever.invoke(question)
 
             answer = self.__chain.invoke(
                 input_payload,
