@@ -7,7 +7,7 @@ import { calculateEfferentCoupling } from './efferentCoupling';
 import { calculateCyclomaticComplexity } from './cyclomaticComplexity';
 import { calculateCognitiveComplexity } from './cognitiveComplexity';
 import { calculateAfferentCoupling } from './afferentCoupling';
-import { randomBytes } from 'crypto';
+import { randomBytes, randomInt } from 'crypto';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -135,7 +135,7 @@ async function main() {
             console.log("Result is: ")
             console.log(JSON.stringify(resultObject, null, 2));
 
-            fs.writeFileSync(userPath +'/result_' + name + currentIndex + randomBytes(2) +'.json', JSON.stringify(resultObject, null, 2), 'utf-8');
+            fs.writeFileSync(userPath +'/result_' + name + currentIndex + randomInt(5) +'.json', JSON.stringify(resultObject, null, 2), 'utf-8');
             currentIndex++;
         }
     }
