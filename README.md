@@ -18,6 +18,59 @@ We're addressing the challenge of ensuring that your architecture is up to date 
 - **Frontend:** Visual Studio Code Extension  
 - **Database:** PostgreSQL – to be implemented  
 
+## Data Overview
+
+### Data Type
+
+The dataset consists of `.java` source files containing classes specifically designed to exemplify various poor coding practices and software design anti-patterns.
+
+---
+
+### Dataset Volume
+
+The current collection comprises approximately 60 distinct class examples, each crafted to illustrate specific instances of suboptimal or erroneous coding techniques.
+
+---
+
+### Data Distribution
+
+The dataset includes erroneous or problematic code examples, categorized as follows within the `georgi-data` subset:
+
+| Category                                                               | Number of Examples | Percentage  |
+| ---------------------------------------------------------------------- | ------------------ | ----------- |
+| Architecture and General Design Issues                                 | 5                  | 17.24%      |
+| Violations of SOLID Principles                                         | 7                  | 24.14%      |
+| Testability and Coupling Deficiencies                                  | 5                  | 17.24%      |
+| Misapplication of Design Patterns and Object-Oriented Principles       | 3                  | 10.34%      |
+| Code Style and Quality Issues                                          | 8                  | 27.59%      |
+| Other Code Issues (Distinct Low-Level Bugs Not Categorized Above)      | 1                  | 3.45%       |
+
+## Performance Metrics Monitored
+
+### Cyclomatic Complexity  
+Measures the number of independent paths through code; higher values indicate more complex logic.
+
+### Cognitive Complexity  
+Quantifies how difficult code is to understand by humans, beyond just control flow structures.
+
+### Weighted Methods per Class (WMC)  
+Sums the complexity of all class methods; indicates effort to maintain or understand the class.
+
+### Lack of Cohesion in Methods (LCOM)  
+Measures how related class methods are via shared fields; high LCOM implies poor class design.
+
+### Afferent Coupling (Ca)  
+Counts how many other classes depend on a given class; high Ca means high responsibility.
+
+### Efferent Coupling (Ce)  
+Counts how many classes a given class depends on; high Ce implies high external reliance.
+
+### Tight Class Cohesion (TCC)  
+Ratio of directly connected method pairs via shared attributes; high TCC means strong internal cohesion.
+
+### Instability (I)  
+Defined as Ce / (Ca + Ce); indicates how prone a module is to change under external influence.
+
 ## Current Status
 
 Development – early stages
@@ -58,7 +111,7 @@ Meet the team behind **ChatBot for Architecture**:
 ---
 
 ### 👤 Asandei Georgiana  
-**Role:** Data analyst  
+**Role:** AI Data Engineer (Code Analysis)  
 
 **Bio:** I am a curious and passionate programmer who enjoys sunny days and bike rides, currently studying CS at BBU.
 
