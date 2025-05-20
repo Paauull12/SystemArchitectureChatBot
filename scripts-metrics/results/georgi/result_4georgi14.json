@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 6,
+    "lcom": 1,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 5,
+    "cognitiveComplex": 6,
+    "afferentCoupling": 0
+  },
+  "problem": "The login and validate methods both contain duplicated logic to check if the username and password match specific credentials. This repetition violates the DRY principle, which aims to reduce redundancy and avoid multiple places needing changes when business rules evolve. Duplicated code increases the risk of inconsistencies and bugs, making the code harder to maintain.",
+  "solution": "To comply with DRY, the shared authentication logic should be extracted into a single reusable method that both login and validate can call. This centralizes the credential verification, reduces duplication, and makes future changes easier and less error-prone."
+}

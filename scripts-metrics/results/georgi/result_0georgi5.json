@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The BadEquality class provides an incorrect implementation of equals() and hashCode(), where equals() always returns true and hashCode() returns a constant value. This violates the fundamental contracts of equals() and hashCode() as defined by the Java specification. Such behavior leads to unpredictable results in collections like HashSet or HashMap, where object equality and hashing are critical for correct behavior. It can cause logical errors, data corruption, or inefficient lookups due to hash collisions.",
+  "solution": "To resolve this, equals() should compare relevant object fields (e.g., id) to determine equality, and hashCode() should generate consistent values based on the same fields. This ensures objects behave correctly in hash-based collections and aligns with the standard Java contract: if two objects are equal, they must return the same hash code. Properly implementing these methods enhances data consistency, correctness, and overall application reliability."
+}

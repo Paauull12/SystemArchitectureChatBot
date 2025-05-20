@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 6,
+    "lcom": 15,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The ApplicationManager class acts as a God Class by encompassing multiple unrelated responsibilities, including user account management, UI handling, database connections, logging, reporting, and email notifications. This results in a highly coupled and complex class that is difficult to maintain, extend, or test. Such concentration of diverse functionalities violates the Single Responsibility Principle and leads to poor code organization, increasing the risk of bugs and making the system rigid and error-prone.",
+  "solution": "The class should be refactored by breaking down its responsibilities into focused, smaller classes or services, each dedicated to a specific domain such as user management, UI control, database handling, logging, reporting, and email communication. This separation improves clarity, reduces coupling, and makes the codebase easier to maintain and extend. By distributing responsibilities appropriately, the design becomes more modular, testable, and aligned with clean coding principles, fostering better scalability and adaptability."
+}
