@@ -1,0 +1,31 @@
+1. afferentCoupling.ts
+
+Afferent Coupling (Ca) indicates how many classes depend on a given class. A low Ca (≤ 3) suggests good isolation, while moderate values (4–7) are acceptable. Higher values (8–12) may require monitoring, and anything above 12 indicates excessive dependencies and a need for refactoring.
+
+2. cognitiveComplexity.ts
+
+Cognitive Complexity (CogC) measures how hard code is to understand, factoring in nesting and mental effort. Scores ≤ 5 are very good (easy understanding), 6–10 are acceptable (reasonable complexity), 11–20 indicate increasing difficulty, and values over 20 suggest the code is overly complex and should be refactored.
+
+3. cyclomaticComplexity.ts
+
+Cyclomatic Complexity (CC) measures the number of independent execution paths in a method, indicating its complexity and testing effort. Values ≤ 5 are ideal (simple, easy to test), 6–10 are acceptable (moderate complexity), 11–15 suggest rising complexity, and scores above 15 indicate overly complex code that should be refactored.
+
+4. efferentCoupling.ts
+
+Efferent Coupling (Ce) counts how many classes a given class depends on, reflecting its independence and reusability. A Ce of ≤ 5 is ideal (highly independent), 6–10 is acceptable (moderate dependencies), 11–20 indicates growing dependency, and values over 20 suggest the class is too dependent and should be refactored.
+
+5. instability.ts
+
+Instability (I) is the ratio of outgoing to total dependencies (Ce / (Ca + Ce)), indicating how prone a class is to change. Values ≤ 0.2 are very stable, 0.2–0.5 are balanced, 0.5–0.8 suggest instability, and values above 0.8 indicate high change risk and low resilience.
+
+6. lcom.ts
+
+Lack of Cohesion of Methods (LCOM) measures how well class methods share instance variables. An LCOM of 0 indicates perfect cohesion, 1–2 is acceptable, 3–5 suggests low cohesion, and values above 5 point to poor cohesion and a likely need to split the class.
+
+7. tcc.ts
+
+Tight Class Cohesion (TCC) measures how strongly methods in a class are connected through shared attributes. A TCC of 0.8 or higher reflects high cohesion, 0.5–0.79 is acceptable, 0.3–0.49 indicates low cohesion, and below 0.3 suggests poor internal structure, with refactoring recommended.
+
+8. weightedMethodClass.ts
+
+Weighted Method Count (WMC) sums the complexity of all methods in a class, reflecting overall class complexity and maintenance effort. A WMC of ≤ 10 indicates simplicity, 11–20 is acceptable, 21–40 suggests high complexity, and values over 40 point to excessive complexity requiring class decomposition.
