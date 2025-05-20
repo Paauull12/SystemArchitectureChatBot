@@ -2,7 +2,7 @@ class Car {
     private Engine engine;
 
     public Car() {
-        this.engine = new Engine(); // tightly coupled
+        this.engine = new Engine();
     }
 
     public void startCar() {

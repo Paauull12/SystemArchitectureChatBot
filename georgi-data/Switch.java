@@ -2,7 +2,7 @@ class Switch {
     private LightBulb bulb;
 
     public Switch() {
-        bulb = new LightBulb(); // directly depends on concrete class
+        bulb = new LightBulb();
     }
 
     public void operate(String command) {

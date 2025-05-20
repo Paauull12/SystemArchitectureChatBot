@@ -7,6 +7,6 @@
     "cognitiveComplex": 12,
     "afferentCoupling": 0
   },
-  "problem": "",
-  "solution": ""
+  "problem": "The GenericHibernateRepo class relies on reflection to determine the generic type at runtime by inspecting its superclass's type parameters. While this may work in simple inheritance scenarios, it introduces fragility and breaks the Liskov Substitution Principle (LSP) when extended improperly or through dynamic proxying, where generic type information may be erased or unavailable. This reflective approach can also result in runtime exceptions that are difficult to trace, reducing code safety and maintainability. Additionally, the reliance on a utility singleton (HibernateUtils) without interface abstraction tightly couples the class to a specific session factory implementation, making it hard to test or swap persistence mechanisms.",
+  "solution": "To improve robustness, the entity type should be explicitly provided via constructor injection, as already supported by the second constructor. This avoids relying on brittle reflection and aligns with the principle of explicit dependencies. For better adherence to LSP and testability, the repository should abstract the session factory or accept it as a dependency, decoupling it from a specific implementation. These changes lead to safer, clearer, and more maintainable code, especially in larger systems or when applying dependency injection frameworks."
 }

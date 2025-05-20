@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 1,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The Car class is tightly coupled to the Engine class by directly instantiating it within the constructor. This rigid dependency makes the Car class difficult to test, extend, or reuse with different types of engines (e.g., electric, hybrid). Any change to the Engine class or the desire to swap it with an alternative implementation would require modifying the Car class itself, violating the Dependency Inversion Principle and hindering flexibility.",
+  "solution": "To reduce coupling, the Engine dependency should be injected via constructor or setter injection, preferably through an interface like Engine. This decouples the Car class from a specific implementation, allowing different engine types to be used interchangeably. This design enhances modularity, testability (via mock engines), and adherence to solid object-oriented principles, making the system easier to maintain and extend."
+}

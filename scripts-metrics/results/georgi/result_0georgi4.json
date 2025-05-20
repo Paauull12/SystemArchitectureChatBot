@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 11,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 8,
+    "cognitiveComplex": 22,
+    "afferentCoupling": 0
+  },
+  "problem": "The BillingManager class violates the Open/Closed Principle by handling multiple billing modes through nested conditionals in a single method. This approach tightly couples billing logic to a single block of code and makes the system difficult to extend. Every time a new payment mode is introduced, the method must be modified, increasing the risk of breaking existing functionality. The method is also lengthy and hard to maintain, exhibiting traits of a God Method by containing too much branching logic in one place.",
+  "solution": "To improve the design, each billing mode should be encapsulated in its own class that implements a common interface, such as BillingStrategy. The BillingManager can then delegate billing to the appropriate strategy at runtime, allowing new billing methods to be added without modifying existing code. This promotes modularity, adheres to the Open/Closed Principle, and results in cleaner, more maintainable code that scales gracefully as new payment types are introduced."
+}
