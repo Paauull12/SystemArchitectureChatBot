@@ -136,7 +136,7 @@ export class GitLikeMetricSystem {
 
     private async calculateMetricsForWrokspace(): Promise<void> {
 
-        const javaFiles = await  vscode.workspace.findFiles('**/*.java',  '**/node_modules/**');
+        const javaFiles = await vscode.workspace.findFiles('**/*.java','{**/build/**,**/target/**,**/bin/**,**/out/**,**/node_modules/**,**/.gradle/**,**/.idea/**,**/.settings/**}');
 
         javaFiles.forEach(uri =>{
             this.debounceCalculation(uri.fsPath);

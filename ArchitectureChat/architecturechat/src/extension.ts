@@ -2,7 +2,9 @@ import * as vscode from 'vscode';
 import { getHtml } from './templates/htmlTemplate';
 import * as path from 'path';
 import { GitLikeMetricSystem, FileMetrics, toStringFileMetrics } from './gitLikeSystemForMetrics';
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
+import { analyzeProjectStructure, formatProjectStructure } from './projectStructure';
+
 
 let metricSystem: GitLikeMetricSystem | undefined;
 
@@ -44,6 +46,7 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
   private _view?: vscode.WebviewView;
   private _messages: ChatMessage[] = [];
   private _context: vscode.ExtensionContext;
+  private _countFilesSent = 0;
 
   constructor(private readonly _extensionUri: vscode.Uri, context: vscode.ExtensionContext) {
     this._context = context;
@@ -121,6 +124,10 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
     });
 
     const data = await response.json() as { message: string[] };
+
+    if(this._countFilesSent % 5 == 0){
+      this._countFilesSent = 1;
+    }
 
     this._handleChooseFileNormal(text, data.message);
   }
@@ -226,6 +233,20 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
       }
       completePrompt += '\n' + strToShow;
     }
+
+    if(this._countFilesSent % 5 == 0){
+      const rootNode = await analyzeProjectStructure();
+      
+      if(rootNode){
+        const result = formatProjectStructure(rootNode);
+      
+        completePrompt += '\n' + "This is the file structure of the project just for more context for you";
+        completePrompt += '\n' + result;
+      }
+
+      //todo the thing with inheritance
+    }
+    this._countFilesSent++;
 
     const response = await fetch('http://localhost:5000/api/chat', {
       method: 'POST',
