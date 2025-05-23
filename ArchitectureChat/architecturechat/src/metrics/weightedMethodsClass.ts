@@ -14,7 +14,6 @@ import { readFileSync } from "fs";
  */
 export function calculateWMC(filepath: string): number {
     try {
-        // Citire read-only fără a modifica fișierul
         const content = readFileSync(filepath, { encoding: 'utf8', flag: 'r' });
         
         let totalComplexity = 0;
@@ -22,11 +21,9 @@ export function calculateWMC(filepath: string): number {
         let insideMethod = false;
         let braceStack: number[] = [];
         
-        // Procesare line-by-line în memorie
         content.split('\n').forEach(line => {
             const trimmed = line.trim();
             
-            // Start metodă nouă
             if (!insideMethod && isJavaMethod(trimmed)) {
                 insideMethod = true;
                 currentMethodComplexity = 1;
@@ -34,14 +31,12 @@ export function calculateWMC(filepath: string): number {
             }
             
             if (insideMethod) {
-                // Track braces
                 for (const char of trimmed) {
                     if (char === '{') {
                         braceStack.push(1);
                     } else if (char === '}') {
                         braceStack.pop();
                         
-                        // Sfârșit de metodă
                         if (braceStack.length === 0) {
                             totalComplexity += currentMethodComplexity;
                             insideMethod = false;
@@ -50,12 +45,10 @@ export function calculateWMC(filepath: string): number {
                     }
                 }
                 
-                // Calculează complexitate
                 if (hasControlFlow(trimmed)) {
                     currentMethodComplexity++;
                 }
                 
-                // Operatori logici
                 currentMethodComplexity += countLogicalOperators(trimmed);
             }
         });
@@ -63,7 +56,6 @@ export function calculateWMC(filepath: string): number {
         return totalComplexity;
         
     } catch (error) {
-        // Eroare silențioasă pentru a nu afecta extensia
         return -1;
     }
 }

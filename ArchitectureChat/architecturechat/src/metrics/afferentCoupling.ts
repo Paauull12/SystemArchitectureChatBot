@@ -14,13 +14,11 @@ import { readFileSync } from "fs";
  */
 export function calculateAfferentCoupling(filepath: string): number {
     try {
-        // Citește conținutul clasei țintă
         const content = readFileSync(filepath, { encoding: 'utf8', flag: 'r' });
         const targetClass = getClassName(content);
         
         if (!targetClass) {return 0;}
         
-        // Configurare pentru scanarea directorului
         const path = require('path');
         const fs = require('fs');
         const dir = path.dirname(filepath);
@@ -28,11 +26,9 @@ export function calculateAfferentCoupling(filepath: string): number {
         
         let dependentClasses = 0;
         
-        // Scanează doar fișierele .java
         const javaFiles = fs.readdirSync(dir)
             .filter((f: string) => f.endsWith('.java') && f !== currentFile);
         
-        // Verifică fiecare fișier pentru dependențe
         javaFiles.forEach((file: string) => {
             const filePath = path.join(dir, file);
             try {
@@ -41,7 +37,6 @@ export function calculateAfferentCoupling(filepath: string): number {
                     dependentClasses++;
                 }
             } catch (e) {
-                // Ignoră erori de citire
             }
         });
         
@@ -58,10 +53,8 @@ function getClassName(content: string): string {
 }
 
 function isDependentOn(content: string, className: string): boolean {
-    // Elimină comentarii și string-uri pentru analiză mai precisă
     const cleanContent = removeCommentsAndStrings(content);
     
-    // Pattern-uri pentru detectarea dependențelor
     const dependencyPatterns = [
         `\\b${className}\\s+\\w+`,              // Type declaration
         `\\bnew\\s+${className}\\s*\\(`,        // Instantiation
@@ -79,7 +72,6 @@ function isDependentOn(content: string, className: string): boolean {
 }
 
 function removeCommentsAndStrings(content: string): string {
-    // Elimină comentarii și string-uri pentru analiză mai precisă
     return content
         .replace(/\/\*[\s\S]*?\*\//g, '')  // Block comments
         .replace(/\/\/.*$/gm, '')          // Line comments

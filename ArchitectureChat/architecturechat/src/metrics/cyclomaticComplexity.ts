@@ -14,13 +14,10 @@ import { readFileSync } from 'fs';
  */
 function calculateCyclomaticComplexity(filepath: string): number {
     try {
-        // Citește conținutul fișierului
         const content = readFileSync(filepath, 'utf8');
         
-        // Inițializează complexitatea cu valoarea de bază (1)
         let complexity = 1;
         
-        // Expresii regulate pentru structuri de control în Java
         const controlStructures = [
             /\bif\s*\(/g,           // if statements
             /\belse\s+if\s*\(/g,    // else if (Java style)
@@ -33,7 +30,6 @@ function calculateCyclomaticComplexity(filepath: string): number {
             /\|\|/g                 // logical OR
         ];
         
-        // Calculează complexitatea parcurgând codul
         controlStructures.forEach(pattern => {
             const matches = content.match(pattern);
             if (matches) {

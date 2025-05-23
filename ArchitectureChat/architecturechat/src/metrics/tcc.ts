@@ -15,7 +15,6 @@ export function calculateTightClassCohesion(filepath: string): number {
     try {
         const content = readFileSync(filepath, { encoding: 'utf8', flag: 'r' });
         
-        // Structuri pentru stocarea informațiilor
         const methods = new Map<string, Set<string>>();
         const instanceVariables = new Set<string>();
         
@@ -29,14 +28,12 @@ export function calculateTightClassCohesion(filepath: string): number {
         for (const line of lines) {
             const trimmedLine = line.trim();
             
-            // Detectează începutul clasei
             if (!insideClass && /(?:public\s+)?(?:abstract\s+)?(?:final\s+)?class\s+\w+/.test(trimmedLine)) {
                 insideClass = true;
             }
             
             if (!insideClass) {continue;}
             
-            // Detectează variabilele de instanță (nu cele statice)
             if (!insideMethod && isInstanceVariable(trimmedLine)) {
                 const varName = extractVariableName(trimmedLine);
                 if (varName) {
@@ -44,7 +41,6 @@ export function calculateTightClassCohesion(filepath: string): number {
                 }
             }
             
-            // Detectează începutul unei metode
             if (!insideMethod && isMethodDeclaration(trimmedLine)) {
                 const methodName = extractMethodName(trimmedLine);
                 if (methodName) {
@@ -55,21 +51,17 @@ export function calculateTightClassCohesion(filepath: string): number {
                 }
             }
             
-            // Procesează conținutul metodei
             if (insideMethod) {
-                // Numără acoladele
                 const openBraces = (trimmedLine.match(/{/g) || []).length;
                 const closeBraces = (trimmedLine.match(/}/g) || []).length;
                 braceLevel += openBraces - closeBraces;
                 
-                // Detectează accesarea variabilelor de instanță
                 for (const variable of instanceVariables) {
                     if (isVariableAccessed(trimmedLine, variable)) {
                         methods.get(currentMethod)?.add(variable);
                     }
                 }
                 
-                // Detectează sfârșitul metodei
                 if (braceLevel === 0 && closeBraces > 0) {
                     insideMethod = false;
                     currentMethod = '';
@@ -85,19 +77,16 @@ export function calculateTightClassCohesion(filepath: string): number {
 }
 
 function isInstanceVariable(line: string): boolean {
-    // Pattern pentru variabile de instanță Java (exclude static)
     const pattern = /^(private|protected|public)?\s*(?!static)(?!final\s+static)(?!static\s+final)\w+(?:\[\])*\s+\w+\s*(?:=.*)?;/;
     return pattern.test(line);
 }
 
 function extractVariableName(line: string): string {
-    // Extrage numele variabilei din declarație
     const match = line.match(/\s+(\w+)\s*(?:=.*)?;/);
     return match ? match[1] : '';
 }
 
 function isMethodDeclaration(line: string): boolean {
-    // Pattern pentru declarații de metode Java
     const pattern = /^(public|private|protected|static|\s)*(void|int|String|boolean|double|float|long|char|byte|short|\w+)\s+\w+\s*\([^)]*\)\s*({|$)/;
     return pattern.test(line);
 }
@@ -108,7 +97,6 @@ function extractMethodName(line: string): string {
 }
 
 function isVariableAccessed(line: string, variable: string): boolean {
-    // Verifică dacă variabila este accesată în linie
     // Include: this.variable, variable direct, și accesări în expresii
     const patterns = [
         new RegExp(`\\bthis\\.${variable}\\b`),
@@ -128,7 +116,6 @@ function calculateTCCValue(methods: Map<string, Set<string>>): number {
     const methodList = Array.from(methods.entries());
     const numMethods = methodList.length;
     
-    // Dacă avem mai puțin de 2 metode, TCC nu poate fi calculat
     if (numMethods < 2) {
         return 0;
     }
@@ -136,7 +123,6 @@ function calculateTCCValue(methods: Map<string, Set<string>>): number {
     let connectedPairs = 0;
     let totalPairs = 0;
     
-    // Compară fiecare pereche de metode
     for (let i = 0; i < numMethods; i++) {
         for (let j = i + 1; j < numMethods; j++) {
             totalPairs++;
@@ -144,7 +130,6 @@ function calculateTCCValue(methods: Map<string, Set<string>>): number {
             const method1Vars = methodList[i][1];
             const method2Vars = methodList[j][1];
             
-            // Verifică dacă metodele partajează cel puțin o variabilă
             let hasCommonVariable = false;
             for (const var1 of method1Vars) {
                 if (method2Vars.has(var1)) {
@@ -159,7 +144,6 @@ function calculateTCCValue(methods: Map<string, Set<string>>): number {
         }
     }
     
-    // TCC = număr de perechi conectate / număr total de perechi
     if (totalPairs === 0) {
         return 0;
     }

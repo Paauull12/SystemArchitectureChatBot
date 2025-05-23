@@ -2,13 +2,17 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 
-// Clasa pentru nodurile din arbore
+/**
+ * Represents a node in the project structure tree.
+ * @param name - Name of the file or directory.
+ * @param isFile - Whether the node represents a file.
+ * @returns void
+ */
 export class ProjectNode {
     name: string;
     isFile: boolean;
     children: ProjectNode[];
-    // Adăugăm informații despre clasă/interfață
-    javaType: string | null = null; // 'class', 'interface', sau 'enum'
+    javaType: string | null = null; 
     extendsFrom: string[] = [];
     implements: string[] = [];
 
@@ -18,19 +22,28 @@ export class ProjectNode {
         this.children = [];
     }
 
+
+    /**
+     * Adds a child node to this node.
+     * @param child - The child ProjectNode to add.
+     * @returns void
+     */
     addChild(child: ProjectNode): void {
         this.children.push(child);
     }
 }
 
-// Interfață pentru a stoca relațiile între clase
 interface JavaRelation {
     from: string;
     to: string;
     type: 'extends' | 'implements';
 }
 
-// Funcție pentru a construi structura proiectului
+/**
+ * Builds the project structure and extracts Java class relationships.
+ * @param rootPath - Root path of the project.
+ * @returns ProjectNode representing the root of the structure.
+ */
 export async function buildProjectStructure(rootPath: string): Promise<ProjectNode> {
     const rootName = path.basename(rootPath);
     const rootNode = new ProjectNode(rootName);
@@ -39,51 +52,47 @@ export async function buildProjectStructure(rootPath: string): Promise<ProjectNo
     const javaRelations: JavaRelation[] = [];
     const javaClasses: Map<string, ProjectNode> = new Map();
     
-    // Prima pasă: găsește toate fișierele și creează structura de foldere
     for (const fileUri of javaFiles) {
         const filePath = fileUri.fsPath;
         const relativePath = path.relative(rootPath, filePath);
         
-        // Adaugă fișierul în arbore
         const pathParts = relativePath.split(path.sep);
         const fileNode = addFileToTree(rootNode, pathParts, true);
         
-        // Parsează conținutul fișierului pentru a găsi clase, interfețe etc.
         const fileContent = fs.readFileSync(filePath, 'utf8');
         parseJavaFile(fileContent, fileNode, javaRelations, javaClasses);
     }
     
-    // A doua pasă: adaugă relațiile între clase
     processJavaRelations(javaRelations, javaClasses);
     
     return rootNode;
 }
 
-// Funcție modificată pentru a returna nodul adăugat
+/**
+ * Adds a file or directory to the project tree.
+ * @param rootNode - The root ProjectNode.
+ * @param pathParts - Path parts from the root to the file.
+ * @param isFile - Whether the node is a file.
+ * @returns ProjectNode that was added.
+ */
 function addFileToTree(rootNode: ProjectNode, pathParts: string[], isFile: boolean): ProjectNode {
     let currentNode = rootNode;
     
-    // Pentru fiecare componentă a căii, exceptând ultimul element (numele fișierului)
     for (let i = 0; i < pathParts.length - 1; i++) {
         const part = pathParts[i];
         
-        // Căutăm dacă directorul există deja în nodurile copil
         let childNode = currentNode.children.find(child => child.name === part && !child.isFile);
         
-        // Dacă nu există, îl creăm
         if (!childNode) {
             childNode = new ProjectNode(part, false);
             currentNode.addChild(childNode);
         }
         
-        // Avansăm la nivelul următor
         currentNode = childNode;
     }
     
-    // Adăugăm fișierul (ultimul element din cale)
     const fileName = pathParts[pathParts.length - 1];
     
-    // Verificăm dacă fișierul există deja pentru a evita duplicatele
     let fileNode = currentNode.children.find(child => child.name === fileName && child.isFile);
     if (!fileNode) {
         fileNode = new ProjectNode(fileName, isFile);
@@ -93,28 +102,29 @@ function addFileToTree(rootNode: ProjectNode, pathParts: string[], isFile: boole
     return fileNode;
 }
 
-// Funcție pentru a parsa un fișier Java și a identifica clasele și relațiile
+/**
+ * Parses a Java file and extracts classes and their relationships.
+ * @param content - Java file content.
+ * @param fileNode - File node in the project tree.
+ * @param relations - Array to store class relations.
+ * @param classes - Map of class names to ProjectNode instances.
+ * @returns void
+ */
 function parseJavaFile(content: string, fileNode: ProjectNode, relations: JavaRelation[], classes: Map<string, ProjectNode>): void {
-    // Regex pentru a găsi declarații de clasă, interfață sau enum
     const classRegex = /\b(public|private|protected)?\s*(abstract|final)?\s*(class|interface|enum)\s+(\w+)(?:\s*<[^>]*>)?(?:\s+extends\s+([^{;]+))?(?:\s+implements\s+([^{;]+))?/g;
     
     let match;
     while ((match = classRegex.exec(content)) !== null) {
         const [_, access, modifier, type, name, extendsClasses, implementsList] = match;
         
-        // Creăm un nod pentru clasă/interfață/enum
         const classNode = new ProjectNode(name, false);
         classNode.javaType = type;
         
-        // Adăugăm clasa la nodul fișier pentru a o păstra în structura de arbore
         fileNode.addChild(classNode);
         
-        // Adăugăm nodul la colecția de clase
         classes.set(name, classNode);
         
-        // Adăugăm informații despre moștenire
         if (extendsClasses) {
-            // Procesăm corect relațiile extends care pot conține generice complexe
             const extendsList = parseDeclarationList(extendsClasses);
             for (const parent of extendsList) {
                 if (parent) {
@@ -129,9 +139,7 @@ function parseJavaFile(content: string, fileNode: ProjectNode, relations: JavaRe
             }
         }
         
-        // Adăugăm informații despre implementări
         if (implementsList) {
-            // Procesăm corect relațiile implements care pot conține generice complexe
             const interfacesList = parseDeclarationList(implementsList);
             for (const iface of interfacesList) {
                 if (iface) {
@@ -148,8 +156,11 @@ function parseJavaFile(content: string, fileNode: ProjectNode, relations: JavaRe
     }
 }
 
-// Funcție pentru a parsa corect listele de declarații (extends sau implements)
-// care pot conține tipuri generice complexe
+/**
+ * Parses comma-separated type declarations handling nested generics.
+ * @param declarationList - The string containing type declarations.
+ * @returns string[] - Array of type names.
+ */
 function parseDeclarationList(declarationList: string): string[] {
     const result: string[] = [];
     let currentItem = '';
@@ -165,7 +176,6 @@ function parseDeclarationList(declarationList: string): string[] {
             depth--;
             currentItem += char;
         } else if (char === ',' && depth === 0) {
-            // Am găsit un separator valid între elemente
             result.push(currentItem.trim());
             currentItem = '';
         } else {
@@ -173,7 +183,6 @@ function parseDeclarationList(declarationList: string): string[] {
         }
     }
     
-    // Adăugăm ultimul element dacă există
     if (currentItem.trim()) {
         result.push(currentItem.trim());
     }
@@ -181,16 +190,16 @@ function parseDeclarationList(declarationList: string): string[] {
     return result;
 }
 
-// Funcție pentru a gestiona tipurile generice în mod corect
+/**
+ * Cleans generic types and extracts base type and parameters.
+ * @param typeString - Type string possibly with generics.
+ * @returns string - Cleaned type string.
+ */
 function handleGenericTypes(typeString: string): string {
-    // Dacă nu avem generice, returnăm ca atare
     if (!typeString.includes('<')) {
         return typeString;
     }
     
-    // Pentru a gestiona corect genericele complexe, trebuie să ținem cont de
-    // adâncimea parantezelor unghiulare pentru a nu confunda tipul principal cu
-    // un alt tip generic în caz de generice imbricate
     let baseType = '';
     let genericParts = '';
     let depth = 0;
@@ -215,7 +224,6 @@ function handleGenericTypes(typeString: string): string {
     
     baseType = baseType.trim();
     
-    // Curățăm genericele de spații în plus după virgule
     let cleanedGenericParts = '';
     let inString = false;
     let skipSpace = false;
@@ -230,7 +238,6 @@ function handleGenericTypes(typeString: string): string {
             cleanedGenericParts += char;
             skipSpace = true;
         } else if (char === ' ' && skipSpace && !inString) {
-            // Ignorăm spațiile după virgulă
             continue;
         } else {
             skipSpace = false;
@@ -241,17 +248,18 @@ function handleGenericTypes(typeString: string): string {
     return baseType + cleanedGenericParts;
 }
 
-// Funcție pentru a procesa relațiile între clase
-function processJavaRelations(relations: JavaRelation[], classes: Map<string, ProjectNode>): void {
-    // Aici putem face ceva cu relațiile, de exemplu construi o reprezentare pentru vizualizare
-}
 
-// Funcție pentru a genera reprezentarea cerută exact conform formatului specificat
+function processJavaRelations(relations: JavaRelation[], classes: Map<string, ProjectNode>): void {}
+
+/**
+ * Generates output for Java class structure and relationships.
+ * @param rootNode - Root node of the project structure.
+ * @returns string - Formatted output string.
+ */
 export function generateJavaRelationsOutput(rootNode: ProjectNode): string {
     const classNodes: ProjectNode[] = [];
     const relations: JavaRelation[] = [];
     
-    // Funcție recursivă pentru a colecta toate clasele
     function collectClasses(node: ProjectNode): void {
         if (node.javaType) {
             classNodes.push(node);
@@ -262,10 +270,8 @@ export function generateJavaRelationsOutput(rootNode: ProjectNode): string {
         }
     }
     
-    // Colectăm toate clasele
     collectClasses(rootNode);
     
-    // Colectăm toate relațiile
     for (const cls of classNodes) {
         for (const extendClass of cls.extendsFrom) {
             relations.push({
@@ -284,7 +290,6 @@ export function generateJavaRelationsOutput(rootNode: ProjectNode): string {
         }
     }
     
-    // Construim un mapping de la nume la tipul lor (class, interface, enum)
     const classTypeMap = new Map<string, string>();
     for (const c of classNodes) {
         if (c.javaType) {
@@ -292,15 +297,12 @@ export function generateJavaRelationsOutput(rootNode: ProjectNode): string {
         }
     }
     
-    // Generăm output-ul
     let output: string[] = [];
     
-    // Adăugăm toate declarațiile de clasă/interfață/enum
     for (const cls of classNodes) {
         output.push(`${cls.javaType} ${cls.name}`);
     }
     
-    // Organizăm relațiile în funcție de clasa de origine
     const classRelations = new Map<string, {extends: string[], implements: string[]}>();
     
     for (const rel of relations) {
@@ -316,11 +318,8 @@ export function generateJavaRelationsOutput(rootNode: ProjectNode): string {
         }
     }
     
-    // Acum generăm relațiile grupate pe clasă
     for (const [className, relInfo] of classRelations.entries()) {
-        // Dacă avem atât extends cât și implements
         if (relInfo.extends.length > 0 && relInfo.implements.length > 0) {
-            // Formatul special: class A->class B(extends)-|>class C(implements)
             for (const extClass of relInfo.extends) {
                 output.push(`${className} -> ${extClass}`);
             }
@@ -329,7 +328,6 @@ export function generateJavaRelationsOutput(rootNode: ProjectNode): string {
                 output.push(`${className} -|> ${implInterface}`);
             }
         } else {
-            // Formatul standard pentru fiecare tip de relație
             for (const extClass of relInfo.extends) {
                 output.push(`${className} -> ${extClass}`);
             }
@@ -340,47 +338,46 @@ export function generateJavaRelationsOutput(rootNode: ProjectNode): string {
         }
     }
     
-    // În cazul în care nu avem clase sau relații, adăugăm un mesaj informativ
     if (output.length === 0) {
-        output.push("// Nu s-au găsit clase sau relații între ele.");
-        output.push("// Verificați că există fișiere Java valide în proiect.");
+        output.push("// No classes or relationships found.");
+        output.push("// Make sure there are valid Java files in the project.");
     }
     
     return output.join('\n');
 }
 
-// Actualizăm pentru a afișa în terminal
+/**
+ * Activates the Java structure analyzer command.
+ * @param context - Extension context.
+ * @returns Output channel used for logging.
+ */
 export default function activateStructureAnalyzer(context: vscode.ExtensionContext) {
-    // Creăm un canal de output pentru extensia noastră
     const outputChannel = vscode.window.createOutputChannel('Java Structure Analyzer');
     
     let disposable = vscode.commands.registerCommand('structureanalyze.analyzeJavaStructure', async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         
         if (!workspaceFolders) {
-            vscode.window.showErrorMessage('Nu există niciun workspace deschis.');
+            vscode.window.showErrorMessage('No workspace is currently open.');
             return;
         }
         
-        // Arătăm canalul de output
-        outputChannel.show(true); // true înseamnă "preserve focus"
-        outputChannel.appendLine('Analizăm structura Java...');
+        outputChannel.show(true);
+        outputChannel.appendLine('Analyzing Java structure...');
         
         const rootPath = workspaceFolders[0].uri.fsPath;
         try {
-            // Verificăm dacă există fișiere Java
             const javaFiles = await vscode.workspace.findFiles('**/*.java','{**/build/**,**/target/**,**/bin/**,**/out/**,**/node_modules/**,**/.gradle/**,**/.idea/**,**/.settings/**}');
-            outputChannel.appendLine(`S-au găsit ${javaFiles.length} fișiere Java pentru analiză.`);
+            outputChannel.appendLine(`Found ${javaFiles.length} Java files for analysis.`);
             
             if (javaFiles.length === 0) {
-                outputChannel.appendLine('Nu s-au găsit fișiere Java pentru analiză.');
-                vscode.window.showInformationMessage('Nu s-au găsit fișiere Java în workspace.');
+                outputChannel.appendLine('No Java files found for analysis.');
+                vscode.window.showInformationMessage('No Java files were found in the workspace.');
                 return;
             }
             
             const projectStructure = await buildProjectStructure(rootPath);
             
-            // Adăugăm debug info despre structura construită
             let classCount = 0;
             let relationCount = 0;
             
@@ -396,30 +393,27 @@ export default function activateStructureAnalyzer(context: vscode.ExtensionConte
             }
             
             countClasses(projectStructure);
-            outputChannel.appendLine(`S-au identificat ${classCount} clase/interfețe și ${relationCount} relații între ele.`);
+            outputChannel.appendLine(`Identified ${classCount} classes/interfaces and ${relationCount} relationships among them.`);
             
-            // Generăm output-ul cu relațiile
             const output = generateJavaRelationsOutput(projectStructure);
             
-            if (output.trim() === '') {
-                outputChannel.appendLine('AVERTISMENT: Output-ul generat este gol. Verificați parserul de fișiere Java.');
+             if (output.trim() === '') {
+                outputChannel.appendLine('WARNING: The generated output is empty. Check the Java file parser.');
             }
             
-            // Afișăm rezultatul în canal
-            outputChannel.appendLine('Rezultatul analizei:');
+            outputChannel.appendLine('Analysis result:');
             outputChannel.appendLine('====================');
             outputChannel.appendLine(output);
             outputChannel.appendLine('====================');
-            outputChannel.appendLine('Analiză completată cu succes!');
-            
-            // Informăm utilizatorul că analiza s-a terminat
-            vscode.window.showInformationMessage('Analiza structurii Java a fost finalizată. Verificați Output Panel.');
+            outputChannel.appendLine('Analysis completed successfully!');
+
+            vscode.window.showInformationMessage('Java structure analysis has been completed. Check the Output Panel.');
         } catch (error) {
-            // Afișăm eroarea în canal
-            outputChannel.appendLine(`Eroare: ${error instanceof Error ? error.message : String(error)}`);
-            vscode.window.showErrorMessage(`Eroare la analizarea structurii: ${error instanceof Error ? error.message : String(error)}`);
+            outputChannel.appendLine(`Error: ${error instanceof Error ? error.message : String(error)}`);
+            vscode.window.showErrorMessage(`Error during structure analysis: ${error instanceof Error ? error.message : String(error)}`);
         }
     });
     
     context.subscriptions.push(disposable, outputChannel);
+    return outputChannel;
 }

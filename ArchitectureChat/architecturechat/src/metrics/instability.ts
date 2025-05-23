@@ -21,10 +21,8 @@ export function calculateInstabilityDirect(filepath: string): number {
             return -1;
         }
         
-        // Calculează Ce - dependențe efferente
         const efferentDependencies = new Set<string>();
         
-        // Pattern-uri pentru dependențe efferente (Ce)
         const importPattern = /import\s+(static\s+)?([^;]+);/g;
         const imports = [...content.matchAll(importPattern)];
         
@@ -38,7 +36,6 @@ export function calculateInstabilityDirect(filepath: string): number {
             }
         }
         
-        // Caută alte tipuri de dependențe în cod
         const patterns = [
             /extends\s+(\w+)/g,
             /implements\s+([^{]+)/g,
@@ -56,7 +53,6 @@ export function calculateInstabilityDirect(filepath: string): number {
             }
         }
         
-        // Elimină self-references și tipuri comune
         efferentDependencies.delete(currentClassName);
         const commonTypes = new Set(['String', 'Integer', 'Boolean', 'Object', 'List', 'Map']);
         for (const common of commonTypes) {
@@ -65,7 +61,6 @@ export function calculateInstabilityDirect(filepath: string): number {
         
         const ce = efferentDependencies.size;
         
-        // Calculează Ca - dependențe afferente
         const directory = path.dirname(filepath);
         const files = readdirSync(directory).filter(file => file.endsWith('.java'));
         let ca = 0;
@@ -77,16 +72,13 @@ export function calculateInstabilityDirect(filepath: string): number {
             try {
                 const otherContent = readFileSync(otherFilePath, { encoding: 'utf8', flag: 'r' });
                 
-                // Verifică dacă fișierul curent depinde de clasa noastră
                 if (hasDependencyOn(otherContent, currentClassName)) {
                     ca++;
                 }
             } catch (e) {
-                // Ignoră fișierele care nu pot fi citite
             }
         }
         
-        // Calculează instabilitatea
         const total = ce + ca;
         if (total === 0) {
             return 0;

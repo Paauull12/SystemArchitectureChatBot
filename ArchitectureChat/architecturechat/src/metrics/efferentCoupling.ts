@@ -15,37 +15,30 @@ export function calculateEfferentCoupling(filepath: string): number {
     try {
         const content = readFileSync(filepath, { encoding: 'utf8', flag: 'r' });
         
-        // Set pentru a stoca clasele de care depinde clasa curentă
         const dependencies = new Set<string>();
         
-        // Pattern-uri specifice pentru Java
         const importPattern = /import\s+(static\s+)?([^;]+);/g;
         const classPattern = /(?:public\s+)?(?:abstract\s+)?(?:final\s+)?class\s+\w+(?:\s+extends\s+(\w+))?(?:\s+implements\s+([^{]+))?/;
         const interfacePattern = /interface\s+\w+(?:\s+extends\s+([^{]+))?/;
         
-        // Extrage toate import-urile
         const imports = [...content.matchAll(importPattern)];
         for (const match of imports) {
             const importPath = match[2].trim();
             
-            // Pentru static imports, extrage clasa corect
             let className: string;
             if (match[1]) { // static import
                 const parts = importPath.split('.');
-                // Pentru static imports, clasa e penultima parte
                 className = parts[parts.length - 2];
             } else {
                 const parts = importPath.split('.');
                 className = parts[parts.length - 1];
             }
             
-            // Skip wildcard imports și pachete Java standard
             if (className && className !== '*' && !importPath.startsWith('java.')) {
                 dependencies.add(className);
             }
         }
         
-        // Extrage dependențe din extends și implements
         const classMatch = content.match(classPattern);
         if (classMatch) {
             // Extends
@@ -62,7 +55,6 @@ export function calculateEfferentCoupling(filepath: string): number {
             }
         }
         
-        // Verifică și pentru interfețe
         const interfaceMatch = content.match(interfacePattern);
         if (interfaceMatch && interfaceMatch[1]) {
             const extendedInterfaces = interfaceMatch[1].split(',');
@@ -71,25 +63,19 @@ export function calculateEfferentCoupling(filepath: string): number {
             }
         }
         
-        // Caută utilizări de clase în cod
         const lines = content.split('\n');
         
         for (const line of lines) {
             const trimmedLine = line.trim();
             
-            // Skip comentarii
             if (trimmedLine.startsWith('//') || trimmedLine.startsWith('/*') || trimmedLine.startsWith('*')) {
                 continue;
             }
             
-            // Pattern-uri pentru detectarea utilizării claselor
-            // TOATE pattern-urile trebuie să aibă flag-ul 'g' pentru matchAll
+           
             const patterns = [
-                // Declarații de variabile: ClassName variableName
                 /^\s*(\w+)\s+\w+\s*[;=]/g,
-                // Declarații cu generice: List<ClassName>
                 /<(\w+)>/g,
-                // Instanțieri: new ClassName()
                 /new\s+(\w+)\s*\(/g,
                 // Parametri de metodă: methodName(ClassName param)
                 /\(\s*(\w+)\s+\w+(?:\s*,\s*(\w+)\s+\w+)*\s*\)/g,
@@ -117,18 +103,15 @@ export function calculateEfferentCoupling(filepath: string): number {
             }
         }
         
-        // Elimină tipurile primitive și clase Java standard comune
         const primitiveAndCommonTypes = new Set([
             'void', 'int', 'long', 'double', 'float', 'boolean', 'byte', 'short', 'char',
             'String', 'Integer', 'Long', 'Double', 'Float', 'Boolean', 'Byte', 'Short', 'Character',
             'Object', 'Class', 'System', 'Math', 'StringBuilder', 'StringBuffer'
         ]);
         
-        // Elimină self-references
         const currentClassName = getCurrentClassName(content);
         dependencies.delete(currentClassName);
         
-        // Filtrează rezultatele finale
         const finalDependencies = new Set<string>();
         for (const dep of dependencies) {
             if (!primitiveAndCommonTypes.has(dep) && dep !== currentClassName) {
@@ -147,10 +130,8 @@ export function calculateEfferentCoupling(filepath: string): number {
 function isValidJavaClass(name: string): boolean {
     if (!name || name.length === 0) {return false;}
     
-    // Verifică dacă e un identificator Java valid
     if (!/^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(name)) {return false;}
     
-    // Exclude keyword-uri Java (acestea nu sunt clase valide)
     const javaKeywords = new Set([
         'abstract', 'assert', 'boolean', 'break', 'byte', 'case', 'catch', 'char',
         'class', 'const', 'continue', 'default', 'do', 'double', 'else', 'enum',
@@ -163,8 +144,7 @@ function isValidJavaClass(name: string): boolean {
     
     if (javaKeywords.has(name)) {return false;}
     
-    // Pentru dependențe externe, de obicei încep cu literă mare (convenție Java)
-    // dar nu e obligatoriu, așa că acceptăm toate identificatorii valizi
+    
     return true;
 }
 
