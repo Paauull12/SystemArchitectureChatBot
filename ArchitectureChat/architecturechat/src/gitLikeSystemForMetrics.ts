@@ -157,19 +157,3 @@ export class GitLikeMetricSystem {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
