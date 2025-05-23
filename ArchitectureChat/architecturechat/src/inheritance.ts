@@ -352,68 +352,71 @@ export function generateJavaRelationsOutput(rootNode: ProjectNode): string {
  * @returns Output channel used for logging.
  */
 export default function activateStructureAnalyzer(context: vscode.ExtensionContext) {
-    const outputChannel = vscode.window.createOutputChannel('Java Structure Analyzer');
     
     let disposable = vscode.commands.registerCommand('structureanalyze.analyzeJavaStructure', async () => {
-        const workspaceFolders = vscode.workspace.workspaceFolders;
-        
-        if (!workspaceFolders) {
-            vscode.window.showErrorMessage('No workspace is currently open.');
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+
+    if (!workspaceFolders) {
+        vscode.window.showErrorMessage('No workspace is currently open.');
+        return;
+    }
+
+    let outputText = '';
+
+    const rootPath = workspaceFolders[0].uri.fsPath;
+    try {
+        const javaFiles = await vscode.workspace.findFiles(
+            '**/*.java',
+            '{**/build/**,**/target/**,**/bin/**,**/out/**,**/node_modules/**,**/.gradle/**,**/.idea/**,**/.settings/**}'
+        );
+        outputText += `Found ${javaFiles.length} Java files for analysis.\n`;
+
+        if (javaFiles.length === 0) {
+            outputText += 'No Java files found for analysis.\n';
+            vscode.window.showInformationMessage('No Java files were found in the workspace.');
             return;
         }
-        
-        outputChannel.show(true);
-        outputChannel.appendLine('Analyzing Java structure...');
-        
-        const rootPath = workspaceFolders[0].uri.fsPath;
-        try {
-            const javaFiles = await vscode.workspace.findFiles('**/*.java','{**/build/**,**/target/**,**/bin/**,**/out/**,**/node_modules/**,**/.gradle/**,**/.idea/**,**/.settings/**}');
-            outputChannel.appendLine(`Found ${javaFiles.length} Java files for analysis.`);
-            
-            if (javaFiles.length === 0) {
-                outputChannel.appendLine('No Java files found for analysis.');
-                vscode.window.showInformationMessage('No Java files were found in the workspace.');
-                return;
-            }
-            
-            const projectStructure = await buildProjectStructure(rootPath);
-            
-            let classCount = 0;
-            let relationCount = 0;
-            
-            function countClasses(node: ProjectNode): void {
-                if (node.javaType) {
-                    classCount++;
-                    relationCount += node.extendsFrom.length + node.implements.length;
-                }
-                
-                for (const child of node.children) {
-                    countClasses(child);
-                }
-            }
-            
-            countClasses(projectStructure);
-            outputChannel.appendLine(`Identified ${classCount} classes/interfaces and ${relationCount} relationships among them.`);
-            
-            const output = generateJavaRelationsOutput(projectStructure);
-            
-             if (output.trim() === '') {
-                outputChannel.appendLine('WARNING: The generated output is empty. Check the Java file parser.');
-            }
-            
-            outputChannel.appendLine('Analysis result:');
-            outputChannel.appendLine('====================');
-            outputChannel.appendLine(output);
-            outputChannel.appendLine('====================');
-            outputChannel.appendLine('Analysis completed successfully!');
 
-            vscode.window.showInformationMessage('Java structure analysis has been completed. Check the Output Panel.');
-        } catch (error) {
-            outputChannel.appendLine(`Error: ${error instanceof Error ? error.message : String(error)}`);
-            vscode.window.showErrorMessage(`Error during structure analysis: ${error instanceof Error ? error.message : String(error)}`);
+        const projectStructure = await buildProjectStructure(rootPath);
+            
+        let classCount = 0;
+        let relationCount = 0;
+            
+        function countClasses(node: ProjectNode): void {
+            if (node.javaType) {
+                classCount++;
+                relationCount += node.extendsFrom.length + node.implements.length;
+            }
+                
+            for (const child of node.children) {
+                countClasses(child);
+            }
         }
-    });
-    
-    context.subscriptions.push(disposable, outputChannel);
-    return outputChannel;
+        countClasses(projectStructure);
+        outputText += `Identified ${classCount} classes/interfaces and ${relationCount} relationships among them.\n`;
+
+        const output = generateJavaRelationsOutput(projectStructure);
+
+        if (output.trim() === '') {
+            outputText += 'WARNING: The generated output is empty. Check the Java file parser.\n';
+        }
+
+        outputText += 'Analysis result:\n';
+        outputText += '====================\n';
+        outputText += output + '\n';
+        outputText += '====================\n';
+        outputText += 'Analysis completed successfully!\n';
+
+        vscode.window.showInformationMessage('Java structure analysis has been completed.');
+        console.log(outputText); 
+    } catch (error) {
+        const errorMsg = `Error during structure analysis: ${error instanceof Error ? error.message : String(error)}\n`;
+        outputText += errorMsg;
+        vscode.window.showErrorMessage(errorMsg);
+    }
+
+    return outputText; 
+});
+
+    context.subscriptions.push(disposable);
 }
