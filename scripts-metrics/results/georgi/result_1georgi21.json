@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 2,
+    "cognitiveComplex": 2,
+    "afferentCoupling": 0
+  },
+  "problem": "The for loop uses the condition i <= numbers.length, which causes it to access numbers[5] on the last iteration. Since valid indices for the array numbers range from 0 to 4, this results in an ArrayIndexOutOfBoundsException. This classic off-by-one error leads to runtime failure and is often difficult to detect in more complex logic.",
+  "solution": "Change the loop condition to i < numbers.length to ensure iteration remains within valid bounds. Off-by-one errors can be avoided by carefully considering whether a loop should include or exclude the endpoint, and by leveraging enhanced for loops when direct index access is not required."
+}

@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 2,
+    "cognitiveComplex": 3,
+    "afferentCoupling": 0
+  },
+  "problem": "The OrderServlet class mixes HTTP request handling with business logic by directly calling order placement methods and handling request parameter parsing. This tight coupling reduces modularity, makes testing harder, and violates the Separation of Concerns principle, which advocates that different responsibilities should be handled by distinct parts of the system.",
+  "solution": "Separate the responsibilities by moving business logic (order processing, validation) entirely into service classes, and keep the servlet focused solely on handling HTTP requests and responses. This improves code maintainability, testability, and clarity by clearly defining boundaries between the web layer and business logic layer."
+}

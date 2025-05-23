@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 5,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 6,
+    "cognitiveComplex": 8,
+    "afferentCoupling": 0
+  },
+  "problem": "The calculateTotal() method uses conditional logic to handle different invoice types. Whenever a new invoice type is introduced, this method must be modified to accommodate it, violating the Open/Closed Principle, which states that classes should be open for extension but closed for modification. This design leads to fragile code that’s hard to maintain and extend.",
+  "solution": "Refactor the design to use polymorphism by creating an abstract Invoice base class or interface with a calculateTotal() method, and implement specific invoice types as subclasses. This way, adding new invoice types only requires creating new classes without changing existing code, making the system more scalable and maintainable."
+}

@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 6,
+    "lcom": 1,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 4,
+    "cognitiveComplex": 5,
+    "afferentCoupling": 0
+  },
+  "problem": "The code manually manages the FileInputStream and attempts to close it in a finally block, but this approach risks a NullPointerException if the stream was never initialized due to an earlier failure. Additionally, catching and printing exceptions without proper handling or propagation limits the program’s ability to recover or inform upstream callers. This pattern leads to resource leaks and makes debugging more difficult.",
+  "solution": "Use the try-with-resources statement introduced in Java 7, which ensures that resources like streams are automatically closed, even if exceptions occur. This eliminates the need for manual finally blocks and reduces the risk of resource leaks. Also, consider logging exceptions or rethrowing them with context to improve observability and maintainability."
+}

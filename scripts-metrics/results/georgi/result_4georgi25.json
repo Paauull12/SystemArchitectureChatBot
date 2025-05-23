@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The getItems() method returns a direct reference to the internal mutable items list. This exposes the class’s internal state to external modification, breaking encapsulation and potentially leading to unpredictable behavior or data corruption if the list is altered outside the class.",
+  "solution": "To protect internal state, return an unmodifiable view or a defensive copy of the list instead of the original reference. This preserves encapsulation by preventing external clients from modifying internal data directly, ensuring better control over state changes and enhancing class robustness."
+}

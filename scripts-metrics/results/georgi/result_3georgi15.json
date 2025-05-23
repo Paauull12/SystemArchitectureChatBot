@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 2,
+    "cognitiveComplex": 1,
+    "afferentCoupling": 0
+  },
+  "problem": "The method riskyOperation catches a broad Exception, which is a poor practice as it masks specific failure types and hinders precise error handling. Catching all exceptions indiscriminately makes it difficult to distinguish between recoverable and critical errors, suppresses meaningful context, and can lead to silent failures or unstable application behavior. Additionally, simply printing the stack trace without proper logging or recovery degrades error traceability in production environments.",
+  "solution": "To improve robustness and maintainability, only catch specific, expected exception types that the operation may throw, such as IOException or SQLException. This allows targeted handling and clearer control flow. Furthermore, replace e.printStackTrace() with structured logging and optionally rethrow the exception or propagate it as needed, ensuring the system can respond appropriately and developers can debug issues effectively."
+}

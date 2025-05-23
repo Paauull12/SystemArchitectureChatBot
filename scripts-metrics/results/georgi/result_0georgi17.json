@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 4,
+    "lcom": 3,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The DogRobot class inherits from Dog, which in turn inherits from Animal, forming an inheritance chain that implies an \"is-a\" relationship. However, a robotic dog is not a natural extension of a biological dog — it does not share the same behavioral or structural semantics. This misuse of inheritance leads to an artificial hierarchy where DogRobot inherits irrelevant methods (like fetchBall) and overrides others (like makeSound) in unintuitive ways. It breaks the principle of substitutability and violates proper object-oriented modeling.",
+  "solution": "Favor composition over inheritance in such cases. Instead of inheriting from Dog, DogRobot should encapsulate shared behavior through interfaces or composition (e.g., implementing a SoundEmitter or Robot interface). This allows flexible reuse of functionality without forcing an illogical hierarchy, resulting in clearer, more maintainable, and semantically accurate code."
+}

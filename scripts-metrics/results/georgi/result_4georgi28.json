@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 5,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 6,
+    "cognitiveComplex": 9,
+    "afferentCoupling": 0
+  },
+  "problem": "The Logger class uses conditional statements to handle different log levels within a single method. This approach is rigid and violates the Open/Closed Principle because adding new log levels requires modifying the method. It also leads to cluttered code and reduces maintainability.",
+  "solution": "Apply the Strategy Pattern by defining a common LogStrategy interface with different implementations for each log level (e.g., InfoLogger, WarnLogger, ErrorLogger). The Logger can then delegate logging to the appropriate strategy based on log level, making the code more modular, extensible, and easier to maintain without modifying existing logic."
+}
