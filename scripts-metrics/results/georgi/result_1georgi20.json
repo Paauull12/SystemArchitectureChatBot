@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 6,
+    "lcom": 4,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The method getCity() in UserProfile calls address.getCity() without verifying if address has been initialized. In the main method, UserProfile is instantiated without setting an address, resulting in a NullPointerException at runtime when getCity() is invoked. This kind of unchecked dereferencing makes the code brittle and prone to failure under normal usage scenarios.",
+  "solution": "Introduce a null check in getCity() to prevent runtime exceptions and handle missing data gracefully. Depending on the use case, return a default value, throw a controlled exception, or use Optional to signal the absence of a value. Ensuring null-safety improves code robustness and user experience by avoiding unexpected crashes."
+}

@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 4,
+    "lcom": 6,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The methods printUserDetails and printAdminDetails contain duplicated logic for printing name and email information. This redundancy violates the DRY (Don’t Repeat Yourself) principle and leads to unnecessary code repetition, making maintenance harder and increasing the risk of inconsistencies if formatting or logic changes are needed in multiple places.",
+  "solution": "To eliminate duplication, extract the common behavior into a shared abstraction, such as a common interface or superclass (e.g., ContactInfoProvider with getName() and getEmail() methods). Both User and Admin can implement this interface, allowing a single method like printDetails(ContactInfoProvider entity) to handle printing generically. This promotes code reuse, simplifies maintenance, and aligns with clean code practices."
+}

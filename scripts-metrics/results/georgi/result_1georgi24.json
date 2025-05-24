@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 11,
+    "lcom": 14,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The Square class inherits from Rectangle but overrides setWidth and setHeight in a way that changes the expected behavior of the base class. When a Square is treated as a Rectangle (e.g. Rectangle r = new Square(4)), changing the width or height breaks the assumptions made about independent dimensions in a rectangle. This violates the Liskov Substitution Principle, which states that objects of a superclass should be replaceable with objects of a subclass without altering the correctness of the program.",
+  "solution": "Avoid using inheritance when the subclass does not fully comply with the behavior contract of the superclass. Instead, model Square and Rectangle as separate classes or extract a common interface (e.g., Shape) with shared behavior like area(). This ensures that each shape maintains its logical consistency and prevents unintended side effects caused by polymorphic misuse."
+}

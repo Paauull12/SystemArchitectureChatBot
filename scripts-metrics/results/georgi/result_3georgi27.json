@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 7,
+    "lcom": 21,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The processOrder method handles multiple distinct responsibilities sequentially, making it large and potentially difficult to read, maintain, or test. Although it delegates to smaller private methods, the main method still orchestrates many unrelated tasks, which can reduce clarity and increase complexity.",
+  "solution": "Break down the order processing into smaller, focused classes or components, each handling a single responsibility (e.g., validation, discount calculation, inventory update, notification). This approach aligns with the Single Responsibility Principle and improves maintainability, testability, and scalability by promoting modular design and clear separation of concerns."
+}
