@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 1,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The class exposes a mutable public field publicValue, allowing external code to modify its value directly. This breaks encapsulation, making it hard to control or validate changes, and can lead to unexpected side effects or bugs.",
+  "solution": "Encapsulate the field by making it private and providing public getter and setter methods if modification from outside is necessary. This approach allows control over how the value is accessed or changed, and helps maintain the integrity of the object's state."
+}

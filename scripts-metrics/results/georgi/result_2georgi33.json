@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 2,
+    "cognitiveComplex": 2,
+    "afferentCoupling": 0
+  },
+  "problem": "The for-loop uses the condition i <= scores.length, which causes an off-by-one error. Array indices in Java go from 0 to length - 1. Using <= will attempt to access scores[scores.length] which is out of bounds, causing an ArrayIndexOutOfBoundsException.",
+  "solution": "Change the loop condition to i < scores.length to ensure valid array indexing and prevent runtime errors. This is a common pitfall in programming, especially with zero-based indexing. Always ensure loop conditions align with the valid range of indices for arrays or collections."
+}

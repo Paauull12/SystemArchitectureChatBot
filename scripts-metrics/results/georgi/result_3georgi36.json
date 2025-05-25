@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 16,
+    "lcom": 3,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 7,
+    "cognitiveComplex": 12,
+    "afferentCoupling": 0
+  },
+  "problem": "The UserManager class in the provided code violates the Single Responsibility Principle (SRP), one of the core principles of clean and maintainable software design. SRP states that a class should have only one reason to change. However, UserManager currently performs multiple distinct responsibilities: 1. User creation and validation, 2. Email validation logic, 3. Persistence to a file, 4. Sending emails, 5. Console I/O for debugging and output. This mixing of concerns leads to a tightly coupled design, making the code harder to test, maintain, and extend. Any change in the email format, file storage mechanism, or message format could require modifications to the same class.",
+  "solution": "Refactor the code by delegating each responsibility to a dedicated class. This ensures clean separation of concerns, improves testability, and aligns with SRP."
+}

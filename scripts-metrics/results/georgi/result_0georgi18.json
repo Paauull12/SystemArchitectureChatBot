@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 1,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The Example9 class contains duplicated code in both printUserInfo() and printAdminInfo(), printing the same hardcoded user details. This violates the DRY (Don't Repeat Yourself) principle, which encourages eliminating redundant code to improve maintainability, reduce bugs, and simplify updates.",
+  "solution": "Extract the repeated logic into a reusable method or utilize a shared data structure such as a User object. This centralizes the logic for printing user information, ensuring consistency and making future modifications easier and less error-prone."
+}

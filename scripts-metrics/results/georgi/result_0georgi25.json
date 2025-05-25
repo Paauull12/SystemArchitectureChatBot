@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 3,
+    "lcom": 3,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "This code demonstrates overuse of inheritance by creating a deep inheritance hierarchy (RobotDog extends Dog, which extends Animal) even though the behaviors and characteristics of a robot dog differ significantly from a biological animal. This leads to a fragile and tightly coupled design where changes in base classes can unintentionally affect subclasses. It also violates the concept of proper abstraction because a robot dog isn’t truly an animal and shouldn’t inherit animal-specific behaviors like eat().",
+  "solution": "Favor composition over inheritance by separating shared behaviors into interfaces or components. For example, define interfaces like Pet and Rechargeable and create classes that implement the behaviors they need without forcing a rigid inheritance chain. This approach improves flexibility and maintains clear responsibility boundaries, avoiding misuse of inheritance."
+}

@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 1,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The use of a static variable count here causes the count to be shared across all instances of Example14. This means all objects manipulate the same count, which may lead to unexpected behavior if the intention was for each instance to maintain its own count. This misuse of static violates encapsulation and can introduce bugs in object state management.",
+  "solution": "Make count an instance variable (non-static) if the count should be maintained separately for each object. If a shared count is truly desired, then keep it static but document this behavior clearly. Typically, instance-specific data should not be static to preserve proper encapsulation and avoid unintended side effects."
+}

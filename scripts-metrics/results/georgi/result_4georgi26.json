@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 1,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The configuration details (host, username, and password) are hardcoded directly in the source code. This approach makes the application inflexible, difficult to maintain, and insecure, as sensitive information like passwords is exposed in code. It also complicates deployment across different environments (development, testing, production), where connection parameters usually vary.",
+  "solution": "Externalize configuration parameters by loading them from a properties file, environment variables, or command-line arguments. This makes the application more flexible, secure, and easier to maintain. For example, use a properties file to store database connection details and load them at runtime."
+}

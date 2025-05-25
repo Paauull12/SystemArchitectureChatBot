@@ -1,12 +1,12 @@
 {
   "metrics": {
-    "wmc": 5,
+    "wmc": 0,
     "lcom": 0,
     "efferentCoupling": -1,
-    "cyclomaticComplex": 5,
-    "cognitiveComplex": 14,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
     "afferentCoupling": 0
   },
-  "problem": "The process method exhibits deep nesting through multiple consecutive if statements, making the code harder to read, maintain, and test. Such nesting obscures the main logic flow and increases cognitive load, especially as conditions grow in complexity. Deeply nested structures are also more prone to errors and less adaptable to change, violating principles of clean and readable code.",
-  "solution": "To improve clarity and maintainability, the method should use early exits (guard clauses) to handle invalid or incomplete states up front. This reduces nesting levels and brings the core business logic — in this case, the \"User is ready\" message — closer to the surface. Refactoring in this way enhances readability, reduces indentation, and aligns with clean code practices."
+  "problem": "The FileReader in Example7 is opened but never explicitly closed, leading to a resource leak. Failing to close file streams can result in file locks, memory pressure, or hitting file descriptor limits—especially in long-running applications or those that open many files.",
+  "solution": "Use a try-with-resources statement to ensure the FileReader is automatically closed, even if an exception occurs. This pattern guarantees proper resource management and is the recommended approach in modern Java for working with Closeable or AutoCloseable resources."
 }

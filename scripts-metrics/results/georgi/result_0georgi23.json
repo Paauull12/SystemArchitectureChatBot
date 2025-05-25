@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 1,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The code uses magic numbers (8, 40, 52) directly in the calculation without explanation. This reduces code readability and maintainability, making it unclear what these numbers represent and harder to update if business rules change.",
+  "solution": "Replace magic numbers with well-named constants that clearly convey their meaning, such as HOURS_PER_DAY, DAYS_PER_WEEK, and WEEKS_PER_YEAR. This improves code clarity and makes future adjustments easier and less error-prone. For example: final int HOURS_PER_DAY = 8; final int DAYS_PER_WEEK = 40; final int WEEKS_PER_YEAR = 52; int wage = HOURS_PER_DAY * DAYS_PER_WEEK * WEEKS_PER_YEAR;"
+}

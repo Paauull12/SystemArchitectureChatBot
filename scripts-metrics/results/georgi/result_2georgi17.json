@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The Ostrich class extends Bird but overrides the fly() method to throw an exception, violating the Liskov Substitution Principle (LSP). According to LSP, subclasses should be substitutable for their base classes without altering the expected behavior of the program. In this case, treating an Ostrich as a Bird and calling fly() causes a runtime failure, which contradicts the expectation that all Birds can fly.",
+  "solution": "Refactor the class hierarchy to better model behavior. One approach is to introduce a more specific abstraction such as a FlyingBird interface or class that only birds capable of flying should implement. This way, Ostrich doesn’t inherit behavior it cannot support, and clients of Bird can interact with appropriate types safely."
+}

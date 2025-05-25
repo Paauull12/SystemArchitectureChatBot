@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 1,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The variables x, y, and z in the Example6 class have non-descriptive names that fail to convey their purpose. Poor naming reduces code readability and maintainability, especially in larger or collaborative projects, as it requires developers to infer the meaning from context rather than the identifier itself.",
+  "solution": "Use clear, descriptive names that reflect the role or intent of each variable. For example, rename x to firstNumber, y to secondNumber, and z to sum. This improves readability, self-documentation of code, and makes future maintenance easier without needing additional comments."
+}

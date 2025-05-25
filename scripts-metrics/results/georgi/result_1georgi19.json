@@ -1,12 +1,12 @@
 {
   "metrics": {
-    "wmc": 1,
-    "lcom": 0,
+    "wmc": 2,
+    "lcom": 1,
     "efferentCoupling": -1,
     "cyclomaticComplex": 1,
     "cognitiveComplex": 0,
     "afferentCoupling": 0
   },
-  "problem": "The EmailService class creates a concrete MailSender instance internally, tightly coupling itself to a specific implementation. This design violates the Dependency Inversion Principle and makes the class difficult to test, extend, or replace the dependency (e.g., with a mock or different implementation). It reduces flexibility and hampers adherence to inversion of control principles.",
-  "solution": "Introduce Dependency Injection by providing the MailSender through the constructor or a setter. This decouples EmailService from the concrete implementation and allows dependencies to be managed externally (e.g., via a DI framework or manual injection). The result is more modular, testable, and maintainable code, where implementations can be swapped without modifying EmailService."
+  "problem": "The Car class is tightly coupled to the Engine class by directly instantiating it (new Engine()). This rigid dependency limits flexibility, hinders testing (e.g., mocking), and violates the Dependency Inversion Principle. The Car cannot operate with different engine types or without modification to its source code.",
+  "solution": "Use dependency injection to decouple the Car from the Engine. Inject the Engine through the constructor or a setter method, possibly using an interface. This promotes flexibility, allows easier testing, and supports future extensibility without altering the Car class's internal logic."
 }
