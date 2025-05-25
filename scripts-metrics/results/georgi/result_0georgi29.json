@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 1,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The design introduces an interface Worker and a class SimpleWorker that implements it, but the scenario is overly simple and does not justify the extra abstraction. This leads to unnecessary complexity (overengineering) for a trivial task that could be handled directly without interfaces.",
+  "solution": "Simplify the design by removing the interface and using a concrete class directly unless there is a clear need for multiple implementations or extensibility. Overengineering should be avoided to keep the code clean and maintainable"
+}

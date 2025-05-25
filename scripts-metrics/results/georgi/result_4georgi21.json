@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 1,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The main method contains a return statement before any other code, making the subsequent commented-out line unreachable. This is a classic example of dead code—code that will never execute—which clutters the codebase, reduces readability, and can confuse maintainers.",
+  "solution": "Remove unreachable code to keep the codebase clean and maintainable. In this case, either delete the return statement if code execution is intended, or remove the commented-out print statement to avoid confusion. Ensuring only reachable, purposeful code remains improves clarity and reduces technical debt."
+}

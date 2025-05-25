@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 6,
+    "lcom": 15,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The GodClass violates the God Object Anti-Pattern by taking on too many responsibilities within a single class — reading input, computing, writing output, logging, and notifying users. This leads to poor cohesion, harder maintenance, and decreased code readability.",
+  "solution": "Refactor the class by separating concerns into multiple smaller, focused classes or components. Each class should handle a single responsibility, improving modularity and maintainability."
+}

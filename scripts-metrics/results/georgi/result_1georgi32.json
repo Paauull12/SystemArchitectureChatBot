@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 3,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 3,
+    "cognitiveComplex": 5,
+    "afferentCoupling": 0
+  },
+  "problem": "The while(true) loop contains a break condition if (Math.random() > 2) which is unreachable because Math.random() generates a double between 0.0 (inclusive) and 1.0 (exclusive). Since the condition > 2 will never be true, the loop runs infinitely, causing an infinite loop and potentially hanging the program.",
+  "solution": "Fix the break condition to use a valid range, such as a threshold between 0 and 1. For example, if (Math.random() > 0.8) would allow the loop to exit randomly about 20% of the time. Alternatively, replace with a proper exit condition based on your logic."
+}

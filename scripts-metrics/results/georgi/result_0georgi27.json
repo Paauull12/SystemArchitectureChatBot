@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 2,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "The Counter class is not thread-safe. When multiple threads call increment() concurrently, race conditions can occur because the increment operation (count++) is not atomic. This may lead to inconsistent or incorrect values being read by getCount().",
+  "solution": "Make the increment() method thread-safe by using synchronization or atomic classes. The simplest approach is to use synchronized to ensure only one thread modifies count at a time. Alternatively, use java.util.concurrent.atomic.AtomicInteger for better performance and atomicity without explicit synchronization."
+}
