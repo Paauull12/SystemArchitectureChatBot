@@ -1,12 +1,1 @@
-{
-  "metrics": {
-    "wmc": 3,
-    "lcom": 3,
-    "efferentCoupling": -1,
-    "cyclomaticComplex": 1,
-    "cognitiveComplex": 0,
-    "afferentCoupling": 0
-  },
-  "problem": "The Worker interface forces all implementers, including Robot, to define behaviors that may not apply to them, such as eat() and sleep(). This violates the Interface Segregation Principle (ISP), which states that no client should be forced to depend on methods it does not use. The Robot class is forced to implement irrelevant methods, leading to fragile code where unsupported operations throw exceptions, reducing clarity and increasing the chance of runtime errors.",
-  "solution": "To adhere to ISP, the interface should be split into smaller, more specific interfaces — for example, Workable, Eatable, and Sleepable. This allows classes like Robot to implement only the interfaces relevant to their behavior. Doing so improves modularity, reduces unnecessary coupling, and makes the codebase more robust and adaptable to change."
-}
+{"metrics": {"wmc": 3, "lcom": 3, "efferentCoupling": -1, "cyclomaticComplex": 1, "cognitiveComplex": 0, "afferentCoupling": 0}, "problem": "The Worker interface forces all implementers, including Robot, to define behaviors that may not apply to them, such as eat() and sleep(). This violates the Interface Segregation Principle (ISP), which states that no client should be forced to depend on methods it does not use. The Robot class is forced to implement irrelevant methods, leading to fragile code where unsupported operations throw exceptions, reducing clarity and increasing the chance of runtime errors.", "solution": "To adhere to ISP, the interface should be split into smaller, more specific interfaces \u2014 for example, Workable, Eatable, and Sleepable. This allows classes like Robot to implement only the interfaces relevant to their behavior. Doing so improves modularity, reduces unnecessary coupling, and makes the codebase more robust and adaptable to change."}

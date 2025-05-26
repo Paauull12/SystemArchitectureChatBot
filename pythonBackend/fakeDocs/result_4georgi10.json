@@ -1,12 +1,1 @@
-{
-  "metrics": {
-    "wmc": 2,
-    "lcom": 0,
-    "efferentCoupling": -1,
-    "cyclomaticComplex": 2,
-    "cognitiveComplex": 2,
-    "afferentCoupling": 0
-  },
-  "problem": "The ReportService class uses a hardcoded, Windows-specific file path (C:/reports/daily.txt) to generate reports. This approach creates platform dependency, making the application incompatible with Linux or other operating systems without modifying the source code. It also violates configuration best practices by embedding environment-specific details directly into the logic, reducing flexibility and portability.",
-  "solution": "To make the code platform-independent and configurable, the file path should be externalized using configuration files, environment variables, or dependency injection. Additionally, leveraging platform-neutral path construction methods (e.g., using Paths.get() or System.getProperty(\"user.home\")) ensures the application runs consistently across environments, improving maintainability and cross-platform support."
-}
+{"metrics": {"wmc": 2, "lcom": 0, "efferentCoupling": -1, "cyclomaticComplex": 2, "cognitiveComplex": 2, "afferentCoupling": 0}, "problem": "The ReportService class uses a hardcoded, Windows-specific file path (C:/reports/daily.txt) to generate reports. This approach creates platform dependency, making the application incompatible with Linux or other operating systems without modifying the source code. It also violates configuration best practices by embedding environment-specific details directly into the logic, reducing flexibility and portability.", "solution": "To make the code platform-independent and configurable, the file path should be externalized using configuration files, environment variables, or dependency injection. Additionally, leveraging platform-neutral path construction methods (e.g., using Paths.get() or System.getProperty(\"user.home\")) ensures the application runs consistently across environments, improving maintainability and cross-platform support."}

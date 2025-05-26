@@ -125,7 +125,7 @@ class ChatViewProvider implements vscode.WebviewViewProvider {
 
     const data = await response.json() as { message: string[] };
 
-    if(this._countFilesSent % 5 == 0){
+    if(this._countFilesSent % 5 == 0 && this._countFilesSent){
       this._countFilesSent = 1;
     }
 

@@ -78,9 +78,32 @@ class RAG():
     def __set_llm_model(self, model_name="gpt-4.1-nano", temperature: float = 0.7):
         return ChatOpenAI(model_name=model_name, temperature=temperature)
 
+    def __fix_json_files_to_ndjson(self, docs_dir: str):
+        import json
+        import os
+        from pathlib import Path
+        
+        for root, dirs, files in os.walk(docs_dir):
+            for file in files:
+                if file.endswith('.json'):
+                    file_path = Path(root) / file
+                    try:
+                        with open(file_path, 'r', encoding='utf-8') as f:
+                            json_data = json.load(f)
+                        
+                        # Convert to NDJSON (one JSON object per line)
+                        with open(file_path, 'w', encoding='utf-8') as f:
+                            f.write(json.dumps(json_data) + '\n')
+                            
+                    except Exception as e:
+                        print(f"Error converting {file_path}: {e}")
+
     def __get_docs_list(self, docs_dir: str) -> list:
         print("Incarcam documente: ")
-
+        
+        # Fix JSON files first
+        self.__fix_json_files_to_ndjson(docs_dir)
+        
         loader = DirectoryLoader(
             docs_dir,
             recursive=True,
@@ -89,6 +112,7 @@ class RAG():
             max_concurrency=4
         )
         docs_list = loader.load_and_split()
+        
         return docs_list
 
     def __set_retriever(self, k: int = 4):
