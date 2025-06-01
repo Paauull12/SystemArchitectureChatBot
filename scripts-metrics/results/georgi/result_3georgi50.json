@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": 14,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "MegaServiceCoordinator depends on 14 other classes, tightly coupling different business domains in one place. This violates Single Responsibility Principle and leads to rigid, fragile code that’s hard to test, maintain, or extend.",
+  "solution": "Divide the class into smaller, focused services like CheckoutService, NotificationService, ComplianceService, etc. Introduce interfaces and dependency injection to reduce coupling. Consider using design patterns like Facade or Mediator to coordinate workflows cleanly."
+}

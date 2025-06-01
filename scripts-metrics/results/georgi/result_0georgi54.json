@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 17
+  },
+  "problem": "Multiple parts of the application create their own SessionManager, causing session data fragmentation and inconsistency, making it impossible to reliably track sessions.",
+  "solution": "Implement SessionManager as a singleton or managed bean that is injected or globally accessible, ensuring all session data is consistent and centrally controlled."
+}

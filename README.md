@@ -38,12 +38,15 @@ The dataset includes erroneous or problematic code examples, categorized as foll
 
 | Category                                                               | Number of Examples | Percentage  |
 | ---------------------------------------------------------------------- | ------------------ | ----------- |
-| Architecture and General Design Issues                                 | 5                  | 17.24%      |
-| Violations of SOLID Principles                                         | 7                  | 24.14%      |
-| Testability and Coupling Deficiencies                                  | 5                  | 17.24%      |
-| Misapplication of Design Patterns and Object-Oriented Principles       | 3                  | 10.34%      |
-| Code Style and Quality Issues                                          | 8                  | 27.59%      |
-| Other Code Issues (Distinct Low-Level Bugs Not Categorized Above)      | 1                  | 3.45%       |
+| Architectural Issues / Design Flaws                                    | 10                 | 20.00%      |
+| SOLID Principle Violations                                             | 9                  | 18.00%      |
+| Code Smells                                                            | 10                 | 20.00%      |
+| Exception Handling & Robustness                                        | 6                  | 12.00%      |
+| Encapsulation & OOP Issues                                             | 4                  | 8.00%       |
+| Looping, Logic & Control Flow Errors                                   | 3                  | 6.00%       |
+| Resource Management                                                    | 2                  | 4.00%       |
+| Comments & Documentation                                               | 1                  | 2.00%       |
+| Other / Miscellaneous                                                  | 5                  | 10.00%      |
 
 ## Performance Metrics Monitored
 

@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 12
+  },
+  "problem": "DateUtils is imported and instantiated by many classes (e.g., services, controllers, schedulers). This causes redundant instantiations, tight coupling, and potential inconsistency if different parts of the system use different date formats or calculations.",
+  "solution": "Convert DateUtils into a static utility class with all static methods, removing the need for instantiation. Alternatively, use a centralized date/time service injected via dependency injection, which can be configured consistently (e.g., with time zone settings). This enhances consistency, reduces coupling, and improves testability."
+}

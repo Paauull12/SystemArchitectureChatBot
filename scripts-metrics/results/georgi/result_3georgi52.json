@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 15
+  },
+  "problem": "Many classes create their own ConfigManager instances loading the same config file repeatedly, wasting resources and risking inconsistent configurations if different files or versions are used.",
+  "solution": "Use a singleton pattern or dependency injection to share one ConfigManager instance across the application. This ensures configuration is loaded once, reduces resource usage, and keeps configuration consistent."
+}

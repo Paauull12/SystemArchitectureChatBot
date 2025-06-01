@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": 10,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "This class violates the Dependency Inversion Principle and suffers from high coupling. It is tightly bound to 10 specific classes, making it brittle, hard to test, and difficult to change when any dependency changes.",
+  "solution": "Introduce facade patterns or composite service interfaces, group related services, or inject abstractions instead of concrete classes. You can also apply domain service segregation to isolate responsibilities."
+}

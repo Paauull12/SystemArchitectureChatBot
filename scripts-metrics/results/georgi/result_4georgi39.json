@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": 17,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "MegaWorkflowManager class depends on 17 services, blending concerns from authentication to loyalty programs, creating an over-coupled and monolithic design that’s tough to maintain, extend, or test.",
+  "solution": "Decompose into focused domain services (e.g., OrderProcessingService, NotificationService, LoyaltyService), and orchestrate with a dedicated coordinator or facade. This reduces coupling, improves readability, and enhances testability."
+}

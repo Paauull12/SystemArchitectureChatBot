@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 13
+  },
+  "problem": "Multiple classes instantiate and use their own EmailSender objects. This duplicates connection setups or resource usage and leads to duplicated configuration code scattered throughout the app.",
+  "solution": "Make EmailSender a singleton service managed by a dependency injection container, so only one instance handles all email sending. This allows central management of email configurations, pooling connections, and easier mocking/testing."
+}

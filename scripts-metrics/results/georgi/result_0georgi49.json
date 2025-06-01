@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": 13,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "This EnterpriseOrderProcessor class violates the Single Responsibility Principle, Open/Closed Principle, and contributes to tight coupling. With 13 dependencies, any change in the ecosystem has a high risk of ripple effects, and testing this class becomes painful.",
+  "solution": "Break it into multiple domain-specific services like OrderWorkflowService, ComplianceHandler, AnalyticsReporter, etc. Use interfaces, dependency inversion, and possibly the Facade or Mediator pattern to decouple the logic and reduce import dependencies."
+}

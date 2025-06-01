@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 16
+  },
+  "problem": "Multiple classes instantiate CurrencyConverter, duplicating the conversion logic and making it harder to update exchange rates globally.",
+  "solution": "Centralize currency conversion by making CurrencyConverter a shared service, preferably with exchange rates fetched and cached centrally. This improves maintainability and consistency."
+}
