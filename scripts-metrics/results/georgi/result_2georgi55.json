@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 19
+  },
+  "problem": "If many classes instantiate their own NotificationService, configuration and connection management can be duplicated, leading to inefficient resource use and harder maintenance.",
+  "solution": "Make NotificationService a centralized singleton or injected service that manages connections and configuration for sending notifications, improving efficiency and maintainability."
+}

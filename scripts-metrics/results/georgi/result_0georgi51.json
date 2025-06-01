@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 14
+  },
+  "problem": "Each class that logs creates its own FileLogger with its own file path, leading to multiple log files or inconsistent logging formats. This complicates log management and increases resource usage.",
+  "solution": "Centralize logging by making FileLogger a singleton logger service or use an existing logging framework (e.g., Log4j, SLF4J) to unify logs. Inject or configure a shared logger instance across the app, ensuring consistent log formatting, file management, and easier monitoring."
+}

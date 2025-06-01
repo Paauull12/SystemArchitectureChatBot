@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 5
+  },
+  "problem": "The CentralMessagingService class is experiencing high afferent coupling—it is depended on by five other classes from another folder. This means changes to CentralMessagingService have a wide blast radius, potentially impacting multiple modules. It violates the Stable Dependencies Principle, which warns against volatile classes being central to many others, making the codebase fragile and harder to maintain.",
+  "solution": "Break down CentralMessagingService into smaller, focused interfaces (e.g. MessageSender, AlertNotifier, ActivityLogger, EventPublisher) and inject only the necessary functionality where needed via interfaces or abstractions. This allows dependent classes to rely only on what they use, promoting loose coupling, modularity, and ease of testing and maintenance."
+}

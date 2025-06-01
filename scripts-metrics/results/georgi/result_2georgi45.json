@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 10
+  },
+  "problem": "UserValidator is imported and instantiated by around 10 different classes across the application, which leads to tight coupling and redundant code (each class creates its own instance). This widespread dependency can make it difficult to maintain or update validation logic since changes affect many classes. Also, having validation logic scattered or duplicated increases the risk of inconsistent validations and hinders testability.",
+  "solution": "Refactor by centralizing validation management using dependency injection (e.g., via a DI framework like Spring) so that all dependent classes share a single, well-managed instance of UserValidator. Alternatively, make UserValidator a stateless utility class with static methods to avoid multiple instantiations. Also, consider extracting specific validation concerns into smaller focused validator interfaces or classes (e.g., EmailValidator, PasswordValidator) to improve single responsibility and modularity."
+}

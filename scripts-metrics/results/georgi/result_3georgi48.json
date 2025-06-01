@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 11
+  },
+  "problem": "OrderService is directly instantiated and tightly coupled with 11 other classes, causing high coupling and code duplication of object creation. This makes the system rigid, hard to maintain, and difficult to test or extend. Any change in OrderService potentially affects all 11 dependent classes, increasing the risk of bugs and inconsistent behavior.",
+  "solution": "Introduce Dependency Injection (DI) to provide a single shared instance of OrderService to all dependent classes, improving maintainability, testability, and reducing redundant code. Using an IoC container (like Spring) or manual DI, you can centralize the creation and lifecycle management of OrderService. Also, consider defining an interface (IOrderService) to decouple the implementation, allowing easier substitution or mocking during tests."
+}

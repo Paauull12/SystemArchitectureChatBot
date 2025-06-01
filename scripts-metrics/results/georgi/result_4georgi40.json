@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 11,
+    "lcom": 28,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 3,
+    "cognitiveComplex": 6,
+    "afferentCoupling": 3
+  },
+  "problem": "The design implicitly turns the Product class into a God class by embedding too many responsibilities—such as pricing logic, availability checks, and stock management—directly into the domain model. This violates the Single Responsibility Principle, as Product is responsible for both representing data and handling business rules.",
+  "solution": "hift responsibilities like tax calculations, stock updates, and availability checks to dedicated service classes (PricingService, InventoryManager, CartService). This promotes better separation of concerns, making the system easier to maintain, test, and extend."
+}

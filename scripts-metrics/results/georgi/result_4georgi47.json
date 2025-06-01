@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 0,
+    "lcom": 0,
+    "efferentCoupling": 12,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 0
+  },
+  "problem": "This class is highly coupled to 12 separate modules. It violates the Interface Segregation Principle and Single Responsibility Principle, acting as a monolithic coordinator that does too much: user management, inventory, discounting, tax, payment, notifications, logging, etc.",
+  "solution": "Split responsibilities across smaller, focused services. Use facades, application service layers, or orchestration pipelines to compose behavior without excessive direct dependency. You could also inject interfaces or service aggregates instead of individual services."
+}

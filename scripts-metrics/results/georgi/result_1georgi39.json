@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 22,
+    "lcom": 65,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 5,
+    "cognitiveComplex": 11,
+    "afferentCoupling": 0
+  },
+  "problem": "The Product class in this code acts as a God class by taking on multiple responsibilities: holding data, calculating tax-inclusive pricing, managing stock levels, and determining availability. This violates the Single Responsibility Principle and leads to tight coupling between the domain object and various business logic layers.",
+  "solution": "Extract responsibilities such as tax calculation (getPriceAfterTax) and stock modification (decreaseStock) into dedicated service classes like PricingService and InventoryManager. This enhances modularity, encourages reuse, and makes the Product class a clean, focused representation of product data only."
+}

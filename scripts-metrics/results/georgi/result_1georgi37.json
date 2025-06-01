@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 6,
+    "lcom": 0,
+    "efferentCoupling": 16,
+    "cyclomaticComplex": 3,
+    "cognitiveComplex": 9,
+    "afferentCoupling": 0
+  },
+  "problem": "SuperCoordinator depends on 16 different services, accumulating responsibilities that cross authentication, user management, catalog, inventory, payment, shipping, notifications, logging, reporting, analytics, compliance, support, and feedback. This results in a monolithic, tightly coupled class that is hard to maintain, extend, or test.",
+  "solution": "Refactor by splitting responsibilities into dedicated services such as OrderProcessingService, NotificationService, ComplianceService, and so forth. Use interfaces and dependency injection to decouple dependencies. Employ orchestration patterns (Facade, Mediator) to coordinate actions cleanly while keeping classes focused and manageable."
+}
