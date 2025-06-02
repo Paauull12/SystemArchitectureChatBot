@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 10,
+    "lcom": 0,
+    "efferentCoupling": 6,
+    "cyclomaticComplex": 30,
+    "cognitiveComplex": 107,
+    "afferentCoupling": 2
+  },
+"problem": "The ComplexProcessor class suffers from excessively high Cyclomatic Complexity (30) and Cognitive Complexity (107), especially within the `processOrder` method. These metrics indicate a deeply nested and difficult-to-follow control flow, which makes the method hard to read, understand, test, and maintain. Although the Lack of Cohesion (LCOM = 0) suggests the methods are related, the code violates the Single Responsibility Principle (SRP) by bundling multiple decision paths and business rules into one monolithic method. The use of repeated conditionals, nested if-else chains, and switch blocks further worsens readability and maintainability.",
+  "solution": "1. Refactor `processOrder` by applying the **Extract Method** pattern to isolate distinct decision branches (e.g., handleStandardOrder, handleExpressOrder, handlePremiumLogic, handleVIPLogic).\n2. Replace deeply nested conditionals with **guard clauses** to reduce indentation and improve readability.\n3. Consider using a **Strategy Pattern** or **Rule Engine** to handle different order types and customer logic in a modular way.\n4. Move constant strings (e.g., 'STANDARD', 'VIP') to named constants or enums to avoid magic strings and improve type safety.\n5. Apply the **Single Responsibility Principle** by splitting validation logic (`validateInput`) into a separate `InputValidator` class.\n6. Write unit tests for each refactored component to ensure correctness and facilitate future changes.\n7. If business logic is complex and evolving, consider introducing a domain model that encapsulates order processing rules and avoids procedural branching."
+}

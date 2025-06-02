@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 17,
+    "lcom": 66,
+    "efferentCoupling": 9,
+    "cyclomaticComplex": 10,
+    "cognitiveComplex": 19,
+    "afferentCoupling": 8
+  },
+  "problem": "The class `MixedUtilityClass` exhibits **low cohesion** and **violates the Single Responsibility Principle (SRP)**:\n\n1. **High LCOM (66)** indicates methods do not share common fields, confirming poor cohesion. Most methods only operate on one or two specific fields, or none at all.\n\n2. The class mixes **domain-specific stateful behavior** (e.g., `updateUserName`, `toggleSubscription`, `calculateAge`) with **generic stateless utility methods** (e.g., `reverseString`, `generatePrimes`, `calculateCircumference`).\n\n3. The **static utility methods** are completely unrelated to the instance fields, resulting in a confusing and bloated class.\n\n4. **Low maintainability**: Developers will find it hard to understand what this class is responsible for or how to extend it without making the cohesion worse.\n\n5. **Poor testability and reusability**: The mixed responsibilities make it hard to write focused unit tests or reuse the utility logic independently.",
+  "solution": "Refactor the class to **improve cohesion and separate concerns**:\n\n1. **Split into multiple cohesive classes**:\n   - `UserProfile`: includes `userName`, `emailAddress`, `birthDate`, `isSubscribed`, etc., with methods like `updateUserName`, `toggleSubscription`, `calculateAge`, `isValidEmail`.\n   - `UserPreferences`: contains `favoriteColors`, `addFavoriteColor`.\n   - `Account`: includes `accountBalance`, `calculateTax`.\n\n2. **Move unrelated utility methods to proper utility classes**:\n   - `StringUtils`: for `reverseString`, `isPalindrome`.\n   - `MathUtils`: for `calculateCircumference`, `fibonacci`, `findMaxInArray`, `generatePrimes`.\n\n3. **Use composition instead of lumping responsibilities into one class**. For example, a `User` object can contain references to `UserProfile`, `UserPreferences`, and `Account`.\n\n4. **Document each class clearly** and ensure each class does only one thing well.\n\nThis separation will lead to smaller, cleaner, and more maintainable classes that follow SOLID design principles."
+}

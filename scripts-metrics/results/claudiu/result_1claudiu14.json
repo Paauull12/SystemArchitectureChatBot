@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 63,
+    "lcom": 55,
+    "efferentCoupling": 4,
+    "cyclomaticComplex": 45,
+    "cognitiveComplex": 81,
+    "afferentCoupling": 8
+  },
+  "problem": "The class `MultiPurposeService` violates core object-oriented design principles, particularly **Single Responsibility Principle (SRP)** and **High Cohesion**:\n\n1. **Very high WMC (63)**: Indicates excessive responsibilities and complexity. The class handles emailing, database I/O, file operations, caching, notifications, and utility tasks.\n\n2. **High LCOM (55)**: Confirms lack of cohesion. Methods are grouped by unrelated functionalities and do not share fields, which makes the class harder to understand and maintain.\n\n3. **Very high Cognitive Complexity (81)**: Reflects nested logic, varied tasks, and high mental effort required to comprehend the code.\n\n4. **Poor maintainability and testability**: Any change in one concern (e.g., file upload logic) risks unintentionally affecting unrelated parts (e.g., notification handling).\n\n5. **Unclear abstraction**: The class name `MultiPurposeService` is a code smell, revealing that the class tries to 'do everything', making it hard to use or extend correctly.",
+  "solution": "To address these issues, the class should be decomposed into smaller, cohesive services with clear responsibilities:\n\n1. **Extract dedicated services**:\n   - `EmailService`: Handles `sendEmail`, `configureEmailServer`.\n   - `DatabaseService`: Handles `saveToDatabase`, `loadFromDatabase`, `configureDatabaseConnection`.\n   - `FileService`: Handles file-related methods (`uploadFile`, `deleteFile`, etc.).\n   - `CacheService`: Handles caching methods (`getFromCache`, `putInCache`, etc.).\n   - `NotificationService`: Handles notifications and subscription management.\n\n2. **Move shared logic to utility/helper classes** where appropriate (e.g., timestamp formatting).\n\n3. **Use composition**: A higher-level class can coordinate these services if needed but should delegate specific concerns.\n\n4. **Add interfaces** for testability and dependency injection (e.g., `ICacheService`, `INotificationService`).\n\n5. **Rename classes meaningfully** and document their responsibilities clearly.\n\nThis modularization will result in smaller, easier-to-test, and more maintainable units of code that comply with SOLID principles."
+}

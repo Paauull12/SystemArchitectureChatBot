@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 3,
+    "lcom": 3,
+    "efferentCoupling": 3,
+    "cyclomaticComplex": 9,
+    "cognitiveComplex": 16,
+    "afferentCoupling": 5
+  },
+ "problem": "The CodeMetricsCalculator class has moderate complexity with a cognitive complexity slightly above the recommended threshold (16 > 15). It performs multiple tasks like analyzing, calculating, and printing metrics, indicating some mixing of responsibilities. The LCOM value of 3 suggests cohesion could be improved. While the cyclomatic complexity is within acceptable bounds, the overall class would benefit from better modularity. Additionally, some methods (like analyzeExample) are doing too much, mixing logic and output formatting.",
+ "solution": "1. Apply the Single Responsibility Principle: split responsibilities into distinct classes such as a MetricAnalyzer, Reporter, and Calculator.\n2. Refactor the analyzeExample method into smaller units (e.g., metric computation, metric display, quality assessment) to reduce cognitive complexity.\n3. Encapsulate metric result data into a dedicated MetricsResult object instead of using primitive parameters.\n4. Consider externalizing threshold values into configuration or constants for better maintainability and reuse.\n5. Use interfaces to separate metric computation logic from I/O concerns (e.g., printing to console), enabling easier testing and potential future extensions like GUI or file output."
+}
