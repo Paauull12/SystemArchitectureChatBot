@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 119,
+    "lcom": 3,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 101,
+    "cognitiveComplex": 209,
+    "afferentCoupling": 2
+  },
+  "problem": "Code Smells",
+  "solution": "Break down large methods into smaller, descriptive ones. Apply abstraction to repetitive logic and avoid deeply nested control structures."
+}

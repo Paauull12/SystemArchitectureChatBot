@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 82,
+    "lcom": 99,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 67,
+    "cognitiveComplex": 141,
+    "afferentCoupling": 2
+  },
+  "problem": "Code Smells",
+  "solution": "Simplify complex control flow"
+}

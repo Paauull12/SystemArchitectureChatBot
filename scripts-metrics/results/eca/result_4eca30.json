@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 10,
+    "lcom": 8,
+    "efferentCoupling": 1,
+    "cyclomaticComplex": 9,
+    "cognitiveComplex": 14,
+    "afferentCoupling": 3
+  },
+  "problem": "Code Smells",
+  "solution": "Refactor to improve cohesion and simplify methods where possible."
+}

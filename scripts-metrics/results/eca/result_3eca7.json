@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 12,
+    "lcom": 66,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 1,
+    "cognitiveComplex": 0,
+    "afferentCoupling": 1
+  },
+  "problem": "Low cohesion detected",
+  "solution": "Refactor class responsibilities"
+}

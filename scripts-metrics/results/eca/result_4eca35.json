@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 147,
+    "lcom": 269,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 111,
+    "cognitiveComplex": 273,
+    "afferentCoupling": 3
+  },
+  "problem": "Architectural Issues / SOLID Principle Violations",
+  "solution": "Apply SOLID principles, especially Single Responsibility and Interface Segregation. Break down the class into smaller, well-defined components with focused responsibilities."
+}

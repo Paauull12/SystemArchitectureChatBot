@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 95,
+    "lcom": 82,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 78,
+    "cognitiveComplex": 210,
+    "afferentCoupling": 3
+  },
+  "problem": "Code Smells",
+  "solution": "Extract methods reduce nesting"
+}

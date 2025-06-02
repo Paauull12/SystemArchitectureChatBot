@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 29,
+    "lcom": 118,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 19,
+    "cognitiveComplex": 50,
+    "afferentCoupling": 5
+  },
+  "problem": "God Class detected",
+  "solution": "Extract methods/classes"
+}

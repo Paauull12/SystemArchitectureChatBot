@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 38,
+    "lcom": 41,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 115,
+    "cognitiveComplex": 287,
+    "afferentCoupling": 3
+  },
+  "problem": "Code Smells",
+  "solution": "Reduce method complexity, refactor deeply nested logic, and split responsibilities to improve cognitive load."
+}

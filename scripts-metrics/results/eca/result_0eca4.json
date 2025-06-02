@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 84,
+    "lcom": 127,
+    "efferentCoupling": 3,
+    "cyclomaticComplex": 81,
+    "cognitiveComplex": 133,
+    "afferentCoupling": 2
+  },
+  "problem": "God Class, low cohesion",
+  "solution": "Refactor the class by splitting it into smaller, cohesive classes, each with a single responsibility."
+}

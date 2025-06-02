@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 83,
+    "lcom": 974,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 32,
+    "cognitiveComplex": 67,
+    "afferentCoupling": 0
+  },
+  "problem": "Code Smells and Encapsulation Issues",
+  "solution": "Improve encapsulation by grouping related methods and fields together. Refactor to reduce class size and increase cohesion by extracting related functionalities into separate classes."
+}

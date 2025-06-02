@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 42,
+    "lcom": 105,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 19,
+    "cognitiveComplex": 51,
+    "afferentCoupling": 5
+  },
+  "problem": "Encapsulation & OOP Issues",
+  "solution": "Refactor into multiple classes or utilities with specific purposes. Group methods by functionality to improve cohesion and encapsulate behavior better."
+}

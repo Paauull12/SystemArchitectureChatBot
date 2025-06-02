@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 141,
+    "lcom": 824,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 112,
+    "cognitiveComplex": 213,
+    "afferentCoupling": 9
+  },
+  "problem": "Architectural Issues Design Flaws",
+  "solution": "Break into smaller classes"
+}

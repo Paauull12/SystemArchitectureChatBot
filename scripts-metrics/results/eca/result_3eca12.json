@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 60,
+    "lcom": 255,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 25,
+    "cognitiveComplex": 49,
+    "afferentCoupling": 12
+  },
+  "problem": "SOLID Principle Violations",
+  "solution": "Apply single responsibility principle"
+}
