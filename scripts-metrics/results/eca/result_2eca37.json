@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 50,
+    "lcom": 10,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 33,
+    "cognitiveComplex": 62,
+    "afferentCoupling": 0
+  },
+  "problem": "Looping, Logic & Control Flow Errors and Code Smells",
+  "solution": "Simplify control flow by extracting complex logic into well-named methods. Use clear and simple structures to enhance readability and maintainability."
+}

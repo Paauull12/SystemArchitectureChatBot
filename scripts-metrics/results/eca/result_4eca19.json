@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 115,
+    "lcom": 691,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 68,
+    "cognitiveComplex": 178,
+    "afferentCoupling": 9
+  },
+  "problem": "Architectural Issues / Design Flaws",
+  "solution": "Refactor the class into smaller, more focused classes with clear responsibilities to reduce complexity and improve cohesion."
+}

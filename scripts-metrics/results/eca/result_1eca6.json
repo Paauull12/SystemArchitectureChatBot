@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 62,
+    "lcom": 189,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 60,
+    "cognitiveComplex": 117,
+    "afferentCoupling": 0
+  },
+  "problem": "Code Smells",
+  "solution": "Remove duplicated code, long methods, and large classes; apply design patterns where appropriate."
+}

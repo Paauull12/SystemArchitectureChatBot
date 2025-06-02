@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 137,
+    "lcom": 66,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 129,
+    "cognitiveComplex": 317,
+    "afferentCoupling": 4
+  },
+  "problem": "Architectural Issues / Design Flaws",
+  "solution": "Decompose the class into smaller components, each handling a specific step of deserialization. Use design patterns such as Builder or Factory to delegate complex logic."
+}

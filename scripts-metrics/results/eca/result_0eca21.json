@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 89,
+    "lcom": 52,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 225,
+    "cognitiveComplex": 620,
+    "afferentCoupling": 2
+  },
+  "problem": "Code Smells",
+  "solution": "Simplify complex logic, extract methods, and use clear control structures to improve readability and maintainability."
+}

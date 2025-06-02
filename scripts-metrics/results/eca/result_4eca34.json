@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 74,
+    "lcom": 62,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 63,
+    "cognitiveComplex": 149,
+    "afferentCoupling": 1
+  },
+  "problem": "Architectural Issues / Design Flaws and Code Smells",
+  "solution": "Refactor the class into smaller components with clear responsibilities. Extract methods or helper classes to reduce complexity and improve modularity."
+}

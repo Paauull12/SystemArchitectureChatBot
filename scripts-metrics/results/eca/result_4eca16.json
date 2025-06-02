@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 78,
+    "lcom": 110,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 44,
+    "cognitiveComplex": 89,
+    "afferentCoupling": 1
+  },
+  "problem": "Architectural Issues / Design Flaws",
+  "solution": "Refactor the class into smaller, well-separated components, each with a single responsibility."
+}

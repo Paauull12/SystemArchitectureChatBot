@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 23,
+    "lcom": 114,
+    "efferentCoupling": 1,
+    "cyclomaticComplex": 15,
+    "cognitiveComplex": 27,
+    "afferentCoupling": 2
+  },
+  "problem": "SOLID Principle Violations",
+  "solution": "Apply the SOLID principles—especially SRP (Single Responsibility Principle) and ISP (Interface Segregation Principle)."
+}

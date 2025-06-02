@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 47,
+    "lcom": 134,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 24,
+    "cognitiveComplex": 36,
+    "afferentCoupling": 12
+  },
+  "problem": "Code Smells",
+  "solution": "Break down into smaller classes or methods with clear responsibilities."
+}

@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 19,
+    "lcom": 68,
+    "efferentCoupling": -1,
+    "cyclomaticComplex": 7,
+    "cognitiveComplex": 7,
+    "afferentCoupling": 0
+  },
+  "problem": "Encapsulation OOP Issues",
+  "solution": "Improve class cohesion design"
+}

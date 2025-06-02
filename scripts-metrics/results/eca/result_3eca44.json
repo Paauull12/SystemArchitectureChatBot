@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 114,
+    "lcom": 667,
+    "efferentCoupling": 2,
+    "cyclomaticComplex": 99,
+    "cognitiveComplex": 202,
+    "afferentCoupling": 4
+  },
+  "problem": "SOLID Principle Violations and Encapsulation Issues",
+  "solution": "Split the test class based on test responsibilities (e.g., unit, integration). Improve separation of concerns and group tests by functionality. Use test helpers or base classes more effectively if needed."
+}
