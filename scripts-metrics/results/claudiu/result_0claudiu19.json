@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 42,
+    "lcom": 77,
+    "efferentCoupling": 8,
+    "cyclomaticComplex": 32,
+    "cognitiveComplex": 44,
+    "afferentCoupling": 3
+  },
+  "problem": "The `UtilityLibrary` class exhibits **low cohesion and poor modular design**, leading to multiple maintainability issues:\n\n1. **High Lack of Cohesion (LCOM = 77)**: The methods operate on disjoint sets of fields. Each method group (string, math, date, etc.) is almost entirely independent, suggesting they belong in separate classes.\n2. **Low Tight Class Cohesion (TCC ≈ 0.05)**: Very few methods share attributes or behavior, confirming the fragmentation.\n3. **High Afferent Coupling (Ca > 40)**: This class is overused as a utility dependency across many other classes, making changes risky and spreading impact widely.\n4. **God Utility Class**: This is a monolithic 'do-everything' class, violating the **Single Responsibility Principle (SRP)**.\n5. **Code Smells**: Grouping unrelated functionality leads to large, hard-to-navigate files and increases the risk of bugs when adding or modifying behavior.",
+  "solution": "Refactor `UtilityLibrary` into **multiple cohesive utility classes**, each with a clearly scoped responsibility. Suggested modules:\n\n1. `StringUtils` – Formatting, capitalization, and text manipulation methods.\n2. `MathUtils` – Percentage, distance, circle area, and numeric calculations.\n3. `DateUtils` – Date formatting, parsing, and date-based logic (e.g., age, weekends).\n4. `FileUtils` – File path and extension validations (not shown, but likely in full class).\n5. `SecurityUtils` – Hashing and salt generation methods (if present).\n6. `ColorUtils`, `ValidationUtils`, etc. – As needed.\n\nApply additional improvements:\n- Make these classes `final` with `private` constructors if they only offer static methods.\n- Avoid sharing instance variables unless absolutely necessary.\n- Use modern Java libraries or dependency injection to separate concerns more cleanly.\n\nThis modularization will **improve cohesion, maintainability, testability, and scalability**, and reduce the negative impact of tight coupling across your codebase."
+}

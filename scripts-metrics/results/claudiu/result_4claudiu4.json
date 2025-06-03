@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 31,
+    "lcom": 120,
+    "efferentCoupling": 2,
+    "cyclomaticComplex": 16,
+    "cognitiveComplex": 17,
+    "afferentCoupling": 5
+  },
+  "problem": "The CommonUtils class exhibits severe cohesion and coupling issues:\n1. Extremely high Lack of Cohesion of Methods (LCOM = 120) indicates that unrelated utilities (string, date, security, math, file) are grouped in a single class without shared state or purpose.\n2. High Weighted Methods per Class (WMC = 31) shows that this utility class is too large, violating the Single Responsibility Principle.\n3. High Afferent Coupling (Ca ≈ 40+) implies that many other classes depend on CommonUtils, making it a critical and fragile component in the system.\n4. This class represents a 'God Class' anti-pattern — overly centralized utility logic with no focused responsibility, making changes risky and reuse inflexible.",
+  "solution": "1. Split the CommonUtils class into focused, cohesive utility classes based on functionality:\n   - StringUtils: string-related methods\n   - DateUtils: date formatting and parsing\n   - SecurityUtils: password hashing and token generation\n   - MathUtils: numerical operations\n   - FileUtils: file extension and naming logic\n2. Mark each utility class as stateless and possibly final; avoid shared mutable state like shared Random or SimpleDateFormat — use thread-safe alternatives (e.g., `ThreadLocal<SimpleDateFormat>` or `DateTimeFormatter`).\n3. Reduce afferent coupling by only importing specific utility classes in consumers rather than a monolithic class.\n4. Use dependency injection or utility interface abstraction if testability is needed (e.g., in SecurityUtils).\n5. Document the scope and intended usage for each utility class to discourage overuse or incorrect application.\n6. Consider replacing some utility logic with standard library functions or existing frameworks (e.g., Apache Commons, Guava) when possible to reduce custom logic footprint."
+}

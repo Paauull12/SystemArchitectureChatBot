@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 94,
+    "lcom": 729,
+    "efferentCoupling": 6,
+    "cyclomaticComplex": 53,
+    "cognitiveComplex": 93,
+    "afferentCoupling": 3
+  },
+  "problem": "The `ServiceOrchestrator` class suffers from multiple severe design issues:\n\n1. **Very High Weighted Methods per Class (WMC = 94)** and **Cyclomatic Complexity (53)** indicate the class contains many complex, independent operations.\n2. **Extremely High Lack of Cohesion (LCOM = 729)** confirms that methods operate on disjoint sets of fields, meaning the class has no unifying purpose and violates the Single Responsibility Principle.\n3. **High Cognitive Complexity (93)** suggests significant mental effort is needed to understand the code logic.\n4. **Efferent Coupling value of -1** likely indicates a tool error, but the class clearly depends on dozens of services (email, payment, analytics, databases, APIs, etc.), suggesting very **high coupling to external systems**.\n5. The class acts as a **God Object**, tightly coordinating across unrelated domains (email, SMS, payments, storage, analytics, etc.) and violating core SOLID principles.\n\nThis design introduces high risk, poor maintainability, and low testability. Changes in one area (e.g., analytics) can inadvertently break others (e.g., file upload), and it is difficult to isolate faults or extend functionality safely.",
+  "solution": "Refactor the `ServiceOrchestrator` into multiple cohesive services, each dedicated to a single business responsibility. For example:\n\n1. **EmailOrchestratorService** → Handles email logic and fallback (EmailService, Mailgun, SMTP).\n2. **SMSOrchestratorService** → Handles Twilio, Slack fallbacks, etc.\n3. **PaymentOrchestratorService** → Responsible for Stripe, PayPal, Square, etc.\n4. **FileStorageService** → Manages file uploads to S3, GCS, Azure, Dropbox.\n5. **AnalyticsService** → Manages event tracking across GA, Mixpanel, Segment, etc.\n6. **SecurityService**, **IntegrationService**, **MonitoringService**, etc.\n\nEach sub-service should:\n- Inject only the dependencies it uses\n- Have low cognitive and cyclomatic complexity per method\n- Be unit tested in isolation\n\nFinally, if needed, introduce a high-level **Coordinator** that wires them together only where orchestrated flows span multiple domains. This preserves separation of concerns while still supporting complex workflows."
+}

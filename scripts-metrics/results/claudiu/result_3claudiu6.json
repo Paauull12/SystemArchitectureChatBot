@@ -1,0 +1,12 @@
+{
+  "metrics": {
+    "wmc": 178,
+    "lcom": 208,
+    "efferentCoupling": 7,
+    "cyclomaticComplex": 136,
+    "cognitiveComplex": 327,
+    "afferentCoupling": 2
+  },
+  "problem": "The `ComplexValidator` class exhibits multiple severe design and maintainability issues:\n1. **Extremely high Cyclomatic Complexity (136)** and **Cognitive Complexity (327)** indicate deep nesting, long methods, and complex conditional logic, especially within `validateUserData` and `validateAddress`.\n2. **Weighted Methods per Class (WMC = 178)** shows this class has too many methods and responsibilities, making it bloated and difficult to manage.\n3. **Very high LCOM (208)** suggests poor cohesion—different validation concerns (user data, address, payment) are not related and should not reside in the same class.\n4. Violates the **Single Responsibility Principle** by combining user, payment, and address validation into a monolithic class.\n5. The nested structure and procedural style hinder readability, testing, and reusability, increasing the risk of bugs and regressions.",
+  "solution": "1. **Split the class into multiple focused validators**:\n   - `UserValidator`\n   - `PaymentValidator`\n   - `AddressValidator`\n   - Possibly sub-validators (e.g., `PasswordValidator`, `PhoneValidator`)\n2. Apply the **Strategy Pattern** or **Chain of Responsibility** to manage different validation paths in a flexible and composable way.\n3. Extract large methods (e.g., `validateUserData`) into smaller, well-named helper methods, each handling a specific field (e.g., `validateEmail`, `validatePasswordStrength`).\n4. Introduce reusable utility classes for common checks like pattern matching, date parsing, and string manipulation.\n5. Replace deeply nested `if` statements with **guard clauses** to improve code clarity.\n6. Use data-driven validation where possible (e.g., a map of field names to validation rules) to reduce branching logic.\n7. Write unit tests for each field-level validator independently to improve maintainability and ensure correctness.\n8. Consider leveraging a validation framework like Hibernate Validator (JSR 380) to reduce boilerplate and enforce constraints declaratively."
+}
