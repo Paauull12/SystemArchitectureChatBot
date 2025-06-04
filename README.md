@@ -48,6 +48,20 @@ The dataset includes erroneous or problematic code examples, categorized as foll
 | Comments & Documentation                                               | 1                  | 2.00%       |
 | Other / Miscellaneous                                                  | 5                  | 10.00%      |
 
+The dataset includes erroneous or problematic code examples, categorized as follows within the `eca-data` subset:
+
+| Category                                                               | Number of Examples | Percentage  |
+| ---------------------------------------------------------------------- | ------------------ | ----------- |
+| Architectural Issues / Design Flaws                                    |                    |             |
+| SOLID Principle Violations                                             |                    |             |
+| Code Smells                                                            |                    |             |
+| Exception Handling & Robustness                                        |                    |             |
+| Encapsulation & OOP Issues                                             |                    |             |
+| Looping, Logic & Control Flow Errors                                   |                    |             |
+| Resource Management                                                    |                    |             |
+| Comments & Documentation                                               |                    |             |
+| Other / Miscellaneous                                                  |                    |             |
+
 ## Performance Metrics Monitored
 
 ### Cyclomatic Complexity  
