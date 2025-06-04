@@ -151,6 +151,22 @@ Meet the team behind **ChatBot for Architecture**:
 
 For inquiries or collaborations, reach out to us at: **dobrescuandreipaul@yahoo.com**
 
+## Vizualizări pentru metrici
+
+### Afferent Coupling
+![Afferent Coupling](./visualisations-for-data/afferentCoupling_plot.png)
+
+### Cognitive Complexity
+![Cognitive Complexity](./visualisations-for-data/cognitiveComplex_plot.png)
+
+### Cyclomatic Complexity
+![Cyclomatic Complexity](./visualisations-for-data/cyclomaticComplex_plot.png)
+
+### Efferent Coupling
+![Efferent Coupling](./visualisations-for-data/efferentCoupling_plot.png)
+
+### Lack of Cohesion in Methods (LCOM)
+![LCOM](./visualisations-for-data/lcom_plot.png)
 ---
 
 **Transforming Architecture with AI**  
