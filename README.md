@@ -28,7 +28,7 @@ The dataset consists of `.java` source files containing classes specifically des
 
 ### Dataset Volume
 
-The current collection comprises approximately 60 distinct class examples, each crafted to illustrate specific instances of suboptimal or erroneous coding techniques.
+The current collection comprises approximately ~120 distinct class examples, each crafted to illustrate specific instances of suboptimal or erroneous coding techniques.
 
 ---
 
