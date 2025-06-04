@@ -59,12 +59,11 @@ def plot_metrics(metrics):
         print(f"Saved plot for metric '{metric_name}' as '{metric_name}_plot.png'")
 
 if __name__ == '__main__':
-    folder_to_search = input("Enter the directory to search: ").strip()
 
-    if os.path.isdir(folder_to_search):
-        find_and_parse(folder_to_search)
-    else:
-        print("Invalid directory. Try again.")
+    find_and_parse('/home/paaull/aiprojectvsextension/scripts-metrics/results/claudiu')
+    find_and_parse('/home/paaull/aiprojectvsextension/scripts-metrics/results/eca')
+    find_and_parse('/home/paaull/aiprojectvsextension/scripts-metrics/results/georgi')
+
 
     print("\n--- Summary ---")
     print(f"Number of parsed files: {number_files}")
