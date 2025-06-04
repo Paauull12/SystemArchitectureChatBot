@@ -34,33 +34,49 @@ The current collection comprises approximately 60 distinct class examples, each 
 
 ### Data Distribution
 
-The dataset includes erroneous or problematic code examples, categorized as follows within the `georgi-data` subset:
+The dataset includes erroneous or problematic code examples, categorized as follows within:  
+   
+1. the `georgi-data` subset:  
 
 | Category                                                               | Number of Examples | Percentage  |
 | ---------------------------------------------------------------------- | ------------------ | ----------- |
-| Architectural Issues / Design Flaws                                    | 10                 | 20.00%      |
-| SOLID Principle Violations                                             | 9                  | 18.00%      |
-| Code Smells                                                            | 10                 | 20.00%      |
-| Exception Handling & Robustness                                        | 6                  | 12.00%      |
-| Encapsulation & OOP Issues                                             | 4                  | 8.00%       |
-| Looping, Logic & Control Flow Errors                                   | 3                  | 6.00%       |
-| Resource Management                                                    | 2                  | 4.00%       |
-| Comments & Documentation                                               | 1                  | 2.00%       |
-| Other / Miscellaneous                                                  | 5                  | 10.00%      |
+| Architectural Issues / Design Flaws                                    | 16                 | 22.22%      |
+| SOLID Principle Violations                                             | 9                  | 12.50%      |
+| Code Smells                                                            | 24                 | 33.33%      |
+| Exception Handling & Robustness                                        | 6                  | 8.33%       |
+| Encapsulation & OOP Issues                                             | 6                  | 8.33%       |
+| Looping, Logic & Control Flow Errors                                   | 3                  | 4.17%       |
+| Resource Management                                                    | 2                  | 2.78%       |
+| Comments & Documentation                                               | 1                  | 1.39%       |
+| Other / Miscellaneous                                                  | 5                  | 6.94%       |
 
-The dataset includes erroneous or problematic code examples, categorized as follows within the `eca-data` subset:
+2. the `eca-data` subset:  
 
 | Category                                                               | Number of Examples | Percentage  |
 | ---------------------------------------------------------------------- | ------------------ | ----------- |
-| Architectural Issues / Design Flaws                                    |                    |             |
-| SOLID Principle Violations                                             |                    |             |
-| Code Smells                                                            |                    |             |
-| Exception Handling & Robustness                                        |                    |             |
-| Encapsulation & OOP Issues                                             |                    |             |
-| Looping, Logic & Control Flow Errors                                   |                    |             |
-| Resource Management                                                    |                    |             |
-| Comments & Documentation                                               |                    |             |
-| Other / Miscellaneous                                                  |                    |             |
+| Architectural Issues / Design Flaws                                    | 9                  | 29.03%      |
+| SOLID Principle Violations                                             | 5                  | 16.13%      |
+| Code Smells                                                            | 14                 | 45.16%      |
+| Exception Handling & Robustness                                        | 2                  | 6.45%       |
+| Encapsulation & OOP Issues                                             | 7                  | 22.58%      |
+| Looping, Logic & Control Flow Errors                                   | 1                  | 3.23%       |
+| Resource Management                                                    | 0                  | 0.00%       |
+| Comments & Documentation                                               | 0                  | 0.00%       |
+| Other / Miscellaneous                                                  | 0                  | 0.00%       |
+
+3. the `claudiu-data` subset:  
+
+| Category                                                               | Number of Examples | Percentage  |
+| ---------------------------------------------------------------------- | ------------------ | ----------- |
+| Architectural Issues / Design Flaws                                    | 4                  | 22.22%      |
+| SOLID Principle Violations                                             | 2                  | 11.11%      |
+| Code Smells                                                            | 2                  | 11.11%      |
+| Exception Handling & Robustness                                        | 2                  | 11.11%      |
+| Encapsulation & OOP Issues                                             | 2                  | 11.11%      |
+| Looping, Logic & Control Flow Errors                                   | 2                  | 11.11%      |
+| Resource Management                                                    | 2                  | 11.11%      |
+| Comments & Documentation                                               | 0                  | 0.00%       |
+| Other / Miscellaneous                                                  | 2                  | 11.11%      |
 
 ## Performance Metrics Monitored
 
